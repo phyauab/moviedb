@@ -1,11 +1,13 @@
 import React from "react";
+import Header from "../Header"
 import image from "../../data/movie_image";
 import video from "../../data/movie_video";
 
 export const Media = () => {
   return (
     <div>
-      <h1 className="content-header">Media</h1>
+      <Header title={"Media"} />
+      
       <div>
         <h1>Video</h1>
       </div>

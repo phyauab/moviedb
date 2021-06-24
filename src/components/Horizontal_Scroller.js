@@ -1,10 +1,11 @@
 import React from "react";
+import Header from "./Header"
 import Card_Movie from "./Card_Movie";
 
 export const Horizontal_Scroller = ({ category, movies }) => {
   return (
     <section className="mb-10">
-      <h1 className="content-header">{category}</h1>
+      <Header title={category}/>
       <div className="py-5 whitespace-nowrap overflow-x-scroll md:px-0">
         {movies.map((movie) => {
           const { id, title, release_date, vote_average, poster_path } = movie;

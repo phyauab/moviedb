@@ -9,7 +9,7 @@ export const Movie_List = ({ display_movies }) => {
   //const movies = popular_movie_data.results;
   const movies = display_movies;
   return (
-    <section className="grid justify-center justify-items-center grid-cols-2 gap-y-5 my-10 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+    <section className="grid justify-center justify-items-center grid-cols-2 gap-y-5 my-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {movies.map((movie, index) => {
         const { id, title, release_date, vote_average, poster_path } = movie;
         return (

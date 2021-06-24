@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import Header from "../Header"
 import movie_data from "../../data/movie_data";
 import movie_crew from "../../data/movie_crew";
 
@@ -34,7 +35,7 @@ export const Detail = () => {
 
   return (
     <div>
-      <h1 className="content-header">Detail</h1>
+      <Header title="Detail"/>
       <div className="flex flex-col gap-3">
         {Object.keys(detail).map((key, index) => {
           return (
@@ -42,7 +43,10 @@ export const Detail = () => {
               <p className="font-bold">
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </p>
-              <p>{detail[key]}</p>
+              <p>{
+              key == "revenue" || key == "budget" ? parseInt(detail[key]).toLocaleString('en-US', {style:'currency', currency: 'USD'}) : detail[key]
+            }
+              </p>
             </div>
           );
         })}

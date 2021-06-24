@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../Header"
 import data from "../../data/movie_crew";
 
 const { cast } = data;
@@ -25,7 +26,7 @@ export const Cast = () => {
 
   return (
     <div className="mb-10">
-      <h1 className="content-header">Cast</h1>
+      <Header title="Cast"/>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{castArr}</div>
       <div className="my-2">
         <p className="text-blue-600 text-right hover:underline">

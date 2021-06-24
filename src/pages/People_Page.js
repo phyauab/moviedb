@@ -1,7 +1,9 @@
 import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Card_Person from "../components/Card_Person";
+import Header from "../components/Header"
 import people_data from "../data/people_data";
+
 
 export const People_Page = () => {
   const { fetchPeople, people } = useMovieContext();
@@ -12,8 +14,9 @@ export const People_Page = () => {
   }, []);
   return (
     <section className="content-center">
-      <h1 className="mt-10 content-header">Popular People</h1>
-      <div className="grid grid-cols-5 gap-10 mb-10">
+      <div className="mb-10"></div>
+      <Header title="Popuplar People"/>
+      <div className="grid grid-cols-2 gap-10 mb-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {mock_people.map((person) => {
           const { id, name, profile_path, known_for } = person;
           return (

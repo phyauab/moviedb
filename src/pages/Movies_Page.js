@@ -1,6 +1,7 @@
 import React from "react";
 import Filter from "../components/Filter";
 import Movie_List from "../components/Movie_List";
+import Header from "../components/Header"
 import { useMovieContext } from "../context/movie_context";
 
 // TODO:
@@ -13,7 +14,7 @@ export const Movies_Page = () => {
   const { fetchFilter, displayMovies } = useMovieContext();
   return (
     <main className="content-center mt-10">
-      <h3 className="content-header">Filter</h3>
+      <Header title="Filter"/>
       <Filter fetchFilter={fetchFilter} />
       <Movie_List display_movies={displayMovies} />
     </main>
