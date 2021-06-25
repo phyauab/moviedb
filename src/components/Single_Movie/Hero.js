@@ -1,4 +1,5 @@
 import React from "react";
+import useMovieContext from "../../context/movie_context";
 import movie_data from "../../data/movie_data";
 
 const {

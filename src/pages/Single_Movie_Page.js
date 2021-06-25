@@ -1,8 +1,15 @@
-import React from "react";
+import { React, useEffect } from "react";
+import { useMovieContext } from "../context/movie_context";
+import { useParams } from "react-router";
 import Hero from "../components/Single_Movie/Hero";
 import Info from "../components/Single_Movie/Info";
 
-export const About_Page = () => {
+export const Single_Movie_Page = () => {
+  const { fetchMovie } = useMovieContext();
+  const { id } = useParams();
+  useEffect(() => {
+    fetchMovie();
+  }, []);
   return (
     <section>
       <Hero />
@@ -11,4 +18,4 @@ export const About_Page = () => {
   );
 };
 
-export default About_Page;
+export default Single_Movie_Page;

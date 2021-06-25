@@ -10,6 +10,8 @@ import {
   FETCH_MOVIE_CERTIFICATIONS,
   FETCH_FILTER,
   FETCH_PEOPLE,
+  FETCH_MOVIE_DETAIL,
+  FETCH_MOVIE_CREDITS,
 } from "../constants/action";
 import popular_movie_data from "../data/popular_movie_data";
 import genre_data from "../data/genre_data";
@@ -53,6 +55,7 @@ const initialState = {
   certifications: certifications_data.certifications.US,
   displayMovies: popular_movie_data.results,
   people: [],
+  singleMovie: {},
 };
 
 export const MovieProvider = ({ children }) => {
@@ -93,6 +96,18 @@ export const MovieProvider = ({ children }) => {
     fetchAPI(FETCH_PEOPLE, url);
   };
 
+  // movie detail + credit
+  const fetchMovie = async (id) => {
+    // detail
+    // https://api.themoviedb.org/3/movie/423108?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    const urlDetail = `${API_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`;
+    fetchAPI(FETCH_MOVIE_DETAIL, urlDetail);
+    // credits
+    //https://api.themoviedb.org/3/movie/423108/credits?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    const urlCredits = `${API_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`;
+    fetchAPI(FETCH_MOVIE_CREDITS, urlCredits);
+  };
+
   // Fetch Home Page Content
   // i.e. The 4 categories
   useEffect(() => {
@@ -106,7 +121,7 @@ export const MovieProvider = ({ children }) => {
 
   return (
     <MovieContext.Provider
-      value={{ ...state, fetchFilter2, fetchFilter, fetchPeople }}
+      value={{ ...state, fetchFilter2, fetchFilter, fetchPeople, fetchMovie }}
     >
       {children}
     </MovieContext.Provider>
