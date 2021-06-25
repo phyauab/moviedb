@@ -5,15 +5,23 @@ import Hero from "../components/Single_Movie/Hero";
 import Info from "../components/Single_Movie/Info";
 
 export const Single_Movie_Page = () => {
-  const { fetchMovie } = useMovieContext();
+  const { singleMovie, fetchMovie } = useMovieContext();
   const { id } = useParams();
   useEffect(() => {
-    fetchMovie();
+    fetchMovie(id);
   }, []);
   return (
     <section>
-      <Hero />
-      <Info />
+      {singleMovie.details === null ? (
+        <h1>loading</h1>
+      ) : (
+        <Hero details={singleMovie.details} />
+      )}
+      <Info
+        details={singleMovie.details}
+        cast={singleMovie.credits.cast}
+        crew={singleMovie.credits.crew}
+      />
     </section>
   );
 };

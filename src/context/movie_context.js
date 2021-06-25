@@ -55,7 +55,10 @@ const initialState = {
   certifications: certifications_data.certifications.US,
   displayMovies: popular_movie_data.results,
   people: [],
-  singleMovie: {},
+  singleMovie: {
+    details: null,
+    credits: null,
+  },
 };
 
 export const MovieProvider = ({ children }) => {
@@ -100,10 +103,12 @@ export const MovieProvider = ({ children }) => {
   const fetchMovie = async (id) => {
     // detail
     // https://api.themoviedb.org/3/movie/423108?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    // .data
     const urlDetail = `${API_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`;
     fetchAPI(FETCH_MOVIE_DETAIL, urlDetail);
     // credits
     //https://api.themoviedb.org/3/movie/423108/credits?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    // .data/cast/crew
     const urlCredits = `${API_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`;
     fetchAPI(FETCH_MOVIE_CREDITS, urlCredits);
   };

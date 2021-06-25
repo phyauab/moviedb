@@ -7,6 +7,8 @@ import {
   FETCH_MOVIE_CERTIFICATIONS,
   FETCH_FILTER,
   FETCH_PEOPLE,
+  FETCH_MOVIE_DETAIL,
+  FETCH_MOVIE_CREDITS,
 } from "../constants/action";
 import compareCertifications from "../helpers/helpers";
 import popular_movie_data from "../data/popular_movie_data";
@@ -44,6 +46,18 @@ const movie_reducer = (state, action) => {
 
   if (action.type === FETCH_PEOPLE) {
     return { ...state, people: action.payload.data.results };
+  }
+
+  if (action.type === FETCH_MOVIE_DETAIL) {
+    const tempMovie = state.singleMovie;
+    tempMovie.details = action.payload.data;
+    return { ...state, singleMovie: tempMovie };
+  }
+
+  if (action.type === FETCH_MOVIE_CREDITS) {
+    const tempMovie = state.singleMovie;
+    tempMovie.credits = action.payload.data;
+    return { ...state, singleMovie: tempMovie };
   }
   return { ...state };
 };

@@ -2,26 +2,38 @@ import React from "react";
 import useMovieContext from "../../context/movie_context";
 import movie_data from "../../data/movie_data";
 
-const {
-  backdrop_path,
-  poster_path,
-  title,
-  tagline,
-  release_date,
-  runtime,
-  genres,
-  vote_average,
-  overview,
-  production_companies,
-} = movie_data;
-const heroImg = `https://image.tmdb.org/t/p/original${backdrop_path}`;
-const poster = `https://image.tmdb.org/t/p/original${poster_path}`;
+// const {
+//   backdrop_path,
+//   poster_path,
+//   title,
+//   tagline,
+//   release_date,
+//   runtime,
+//   genres,
+//   vote_average,
+//   overview,
+//   production_companies,
+// } = movie_data;
+// const heroImg = `https://image.tmdb.org/t/p/original${backdrop_path}`;
+// const poster = `https://image.tmdb.org/t/p/original${poster_path}`;
 
-export const Hero = () => {
+export const Hero = ({ details }) => {
+  const {
+    backdrop_path,
+    poster_path,
+    title,
+    tagline,
+    release_date,
+    runtime,
+    genres,
+    vote_average,
+    overview,
+    production_companies,
+  } = details;
   return (
     <section
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("${heroImg}")`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("https://image.tmdb.org/t/p/original${backdrop_path}")`,
       }}
       className="bg-fixed bg-cover bg-center mb-10 h-full"
     >
@@ -29,7 +41,11 @@ export const Hero = () => {
       <div className="content-center flex flex-col justify-center items-center gap-y-2 py-5 lg:flex-row lg:p-5">
         {/* Poster Left/Top */}
         <div className="w-48 lg:w-full">
-          <img src={poster} alt="movie_poster" className="max-w-full" />
+          <img
+            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+            alt="movie_poster"
+            className="max-w-full"
+          />
         </div>
 
         {/* Hero Info Bottom/Right */}

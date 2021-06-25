@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../Header"
+import Header from "../Header";
 import data from "../../data/movie_crew";
 
 const { cast } = data;
 
-export const Cast = () => {
+export const Cast = ({ cast }) => {
   const castArr = [];
   for (let i = 0; i < 10; ++i) {
     const { id, name, character, profile_path } = cast[i];
@@ -26,7 +26,7 @@ export const Cast = () => {
 
   return (
     <div className="mb-10">
-      <Header title="Cast"/>
+      <Header title="Cast" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{castArr}</div>
       <div className="my-2">
         <p className="text-blue-600 text-right hover:underline">
