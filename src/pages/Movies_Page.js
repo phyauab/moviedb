@@ -1,7 +1,7 @@
-import React from "react";
+import { React, useEffect } from "react";
 import Filter from "../components/Filter";
 import Movie_List from "../components/Movie_List";
-import Header from "../components/Header"
+import Header from "../components/Header";
 import { useMovieContext } from "../context/movie_context";
 
 // TODO:
@@ -11,12 +11,25 @@ import { useMovieContext } from "../context/movie_context";
 // REFERENCE: https://developers.themoviedb.org/3/discover/movie-discover
 
 export const Movies_Page = () => {
-  const { fetchFilter, displayMovies } = useMovieContext();
+  const { genres, certifications, fetchFilter, movieList, filterMovies } =
+    useMovieContext();
+
+  useEffect(() => {
+    fetchFilter();
+  }, []);
+
   return (
     <main className="content-center mt-10">
-      <Header title="Filter"/>
-      <Filter fetchFilter={fetchFilter} />
-      <Movie_List display_movies={displayMovies} />
+      <Header title="Filter" />
+      {genres.status === "LOADING" || certifications.status === "LOADING" ? (
+        <h1>Loading...</h1>
+      ) : (
+        <Filter
+          genres={genres.genres}
+          certifications={certifications.certifications}
+        />
+      )}
+      <Movie_List movieList={movieList} filterMovies={filterMovies} />
     </main>
   );
 };

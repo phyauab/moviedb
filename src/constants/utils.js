@@ -5,8 +5,8 @@ export const links = [
     url: "/movies",
   },
   {
-    text: "Genres",
-    url: "/genres",
+    text: "Providers",
+    url: "/providers",
   },
   {
     text: "People",

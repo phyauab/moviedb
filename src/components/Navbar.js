@@ -1,5 +1,5 @@
 import { React } from "react";
-import { links } from "./utils";
+import { links } from "../constants/utils";
 import { useAppContext } from "../context/app_context";
 import { Link } from "react-router-dom";
 

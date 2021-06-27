@@ -9,12 +9,27 @@ import {
   FETCH_PEOPLE,
   FETCH_MOVIE_DETAIL,
   FETCH_MOVIE_CREDITS,
+  FETCH_MOVIE_VIDEOS,
+  FETCH_MOVIE_IMAGES,
+  FETCH_WATCH_PROVIDERS,
+  SET_ISLOADING_TRUE,
+  SET_ISLOADING_FALSE,
 } from "../constants/action";
 import compareCertifications from "../helpers/helpers";
-import popular_movie_data from "../data/popular_movie_data";
 
 const movie_reducer = (state, action) => {
-  // fectch movies
+  // set loading
+  if (action.type === SET_ISLOADING_TRUE) {
+    //console.log("reducer loading true ");
+    return { ...state, isLoading: true };
+  }
+
+  if (action.type === SET_ISLOADING_FALSE) {
+    //console.log("reducer loading false ");
+    return { ...state, isLoading: false };
+  }
+
+  // fectch recommendation
   if (
     action.type === FETCH_TRENDING_MOVIE ||
     action.type === FETCH_POPULAR_MOVIE ||
@@ -22,11 +37,13 @@ const movie_reducer = (state, action) => {
     action.type === FETCH_UPCOMING_MOVIE
   ) {
     const tempMovieCategories = state.movieCategories;
+
     tempMovieCategories.forEach((item) => {
       if (item.action === action.type) {
         item.movies = action.payload.data.results;
       }
     });
+    console.log("finish fetching");
     return { ...state, movieCategories: tempMovieCategories };
   }
 
@@ -58,6 +75,26 @@ const movie_reducer = (state, action) => {
     const tempMovie = state.singleMovie;
     tempMovie.credits = action.payload.data;
     return { ...state, singleMovie: tempMovie };
+  }
+
+  if (action.type === FETCH_MOVIE_VIDEOS) {
+    const tempMovie = state.singleMovie;
+    tempMovie.videos = action.payload.data.results;
+    return { ...state, singleMovie: tempMovie };
+  }
+
+  if (action.type === FETCH_MOVIE_IMAGES) {
+    const tempMovie = state.singleMovie;
+    tempMovie.images = action.payload.data;
+    return { ...state, singleMovie: tempMovie, isLoading: false };
+  }
+
+  if (action.type === FETCH_WATCH_PROVIDERS) {
+    return {
+      ...state,
+      watchProviders: action.payload.data.results,
+      isLoading: false,
+    };
   }
   return { ...state };
 };

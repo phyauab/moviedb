@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 
-import { Home, Movies, Single_Movie, Genres, People, About } from "./pages";
+import { Home, Movies, Single_Movie, Providers, People, About } from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -18,8 +18,8 @@ function App() {
           <Movies />
         </Route>
         <Route path="/movies/:id" children={<Single_Movie />} />
-        <Route path="/genres">
-          <Genres />
+        <Route path="/providers">
+          <Providers />
         </Route>
         <Route path="/people">
           <People />

@@ -6,7 +6,8 @@ const { cast } = data;
 
 export const Cast = ({ cast }) => {
   const castArr = [];
-  for (let i = 0; i < 10; ++i) {
+  const length = cast.length < 11 ? cast.length : 10;
+  for (let i = 0; i < length; ++i) {
     const { id, name, character, profile_path } = cast[i];
     castArr.push(
       <div key={id} className="flex shadow-md">

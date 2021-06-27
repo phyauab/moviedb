@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppContext } from "../context/app_context";
-import { links } from "./utils";
+import { links } from "../constants/utils";
 
 const sideBarClose =
   "transition duration-500 ease-in-out transform translate-x-full";

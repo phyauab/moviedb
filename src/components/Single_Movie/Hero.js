@@ -40,7 +40,7 @@ export const Hero = ({ details }) => {
       {/* Content */}
       <div className="content-center flex flex-col justify-center items-center gap-y-2 py-5 lg:flex-row lg:p-5">
         {/* Poster Left/Top */}
-        <div className="w-48 lg:w-full">
+        <div className="w-48 lg:w-96">
           <img
             src={`https://image.tmdb.org/t/p/original${poster_path}`}
             alt="movie_poster"
