@@ -18,12 +18,12 @@ export const Single_Movie_Page = () => {
 
   if (singleMovie.status === "LOADING") {
     return <h1 className="content-center">Loading...</h1>;
-  } else if (singleMovie.status === "LOADED") {
-    console.log("SINGLE MOVIE LOADED");
+  } else if (singleMovie.status === "ERROR") {
+    return <h1 className="content-center">Sorry, something is wrong</h1>;
   }
   return (
     <section>
-      <Hero details={details} />
+      <Hero details={details} />s
       <Info
         details={details}
         cast={credits.cast}

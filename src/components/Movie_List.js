@@ -11,7 +11,9 @@ export const Movie_List = ({ movieList, filterMovies }) => {
   }, []);
 
   if (movieList.status === "LOADING") {
-    return <h1>LOADING...</h1>;
+    return <h1 className="content-center">LOADING...</h1>;
+  } else if (movieList.status === "ERROR") {
+    return <h1 className="content-center">Sorry, something is wrong...</h1>;
   }
 
   return (

@@ -7,15 +7,16 @@ export const Providers_Page = () => {
   const providersList = [];
 
   useEffect(() => {
-    console.log("useEffect fetchProviders");
-    fetchProviders();
+    if (providers.providers.length === 0) {
+      console.log("useEffect fetchProviders");
+      fetchProviders();
+    }
   }, []);
 
   if (providers.status === "LOADING") {
     return <h1>Loading...</h1>;
-  } else if (providers.status === "LOADED") {
-    console.log("PROVIDERS LOADED");
-    //console.log(JSON.stringify(providers));
+  } else if (providers.status === "ERROR") {
+    return <h1>Sorry, something is wrong</h1>;
   }
 
   const sortList = () => {

@@ -9,14 +9,16 @@ export const People_Page = () => {
   const { status } = people;
 
   useEffect(() => {
-    fetchPeople();
+    if (people.people.length === 0) {
+      console.log("fetch people");
+      fetchPeople();
+    }
   }, []);
 
   if (status === "LOADING") {
-    return <h1>LOADING...</h1>;
-  } else if (status === "LOADED") {
-    console.log("PEOPLE LOADED");
-    // console.log(JSON.stringify(people));
+    return <h1 className="content-center">LOADING...</h1>;
+  } else if (status === "ERROR") {
+    return <h1 className="content-center">Sorry, something is wrong...</h1>;
   }
 
   return (

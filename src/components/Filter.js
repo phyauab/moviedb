@@ -22,9 +22,6 @@ export const Filter = ({ genres, certifications }) => {
   // modify
   // https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&release_date.gte=2021-01-01&release_date.lte=2021-12-13&vote_average.gte=0&vote_average.lte=10&with_genres=28%2C12&certification=NR%2CG%2CPG%2CPG-13%2CR%2CNC-17&with_watch_monetization_types=flatrate
 
-  console.log(JSON.stringify(certifications));
-  console.log(JSON.stringify(genres));
-
   const handleSubmit = (e) => {
     e.preventDefault();
     var url =

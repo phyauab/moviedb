@@ -15,7 +15,10 @@ export const Movies_Page = () => {
     useMovieContext();
 
   useEffect(() => {
-    fetchFilter();
+    if (genres.genres.length === 0) {
+      console.log("fetch filter");
+      fetchFilter();
+    }
   }, []);
 
   return (

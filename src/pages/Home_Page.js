@@ -8,14 +8,17 @@ export const Home_Page = () => {
   const [heroImg, setHeroImg] = useState("");
 
   useEffect(() => {
-    console.log("useEffect fetchHome");
-    fetchHome();
+    // this is to prevent fetching data every time visit the home page
+    if (movieCategories.categories[0].movies === null) {
+      console.log("FETCH HOME");
+      fetchHome();
+    }
   }, []);
 
-  console.log(movieCategories.status);
   if (movieCategories.status === "LOADING") {
     return <h1>LOADING...</h1>;
-  } else if (movieCategories.status === "LOADED") {
+  } else if (movieCategories.status === "ERROR") {
+    return <h1>Sorry, something is wrong</h1>;
   }
 
   return (

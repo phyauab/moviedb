@@ -30,6 +30,7 @@ export const Hero = ({ details }) => {
     overview,
     production_companies,
   } = details;
+
   return (
     <section
       style={{
@@ -44,7 +45,7 @@ export const Hero = ({ details }) => {
           <img
             src={`https://image.tmdb.org/t/p/original${poster_path}`}
             alt="movie_poster"
-            className="max-w-full"
+            className="w-full h-auto "
           />
         </div>
 

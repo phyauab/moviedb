@@ -171,13 +171,13 @@ export const MovieProvider = ({ children }) => {
   const fetchHome = async () => {
     setMovieCategories({ ...movieCategories, status: "LOADING" });
     const tempCategories = movieCategories.categories;
+    console.log("fetch movies");
     await Promise.all(
       movieCategories.categories.map(async (movieCategory, i) => {
         const url = `${API_URL}${movieCategory.keyword}${API_KEY}${API_LANGUAGE}${API_PAGE}=1`;
         try {
-          //console.log("before");
           const response = await axios.get(url);
-          //console.log("after");
+          console.log(response);
           tempCategories[i].movies = response.data.results;
         } catch (error) {
           console.log(error);
@@ -210,8 +210,10 @@ export const MovieProvider = ({ children }) => {
 
   const filterMovies = async () => {
     if (movieList.movieList.length === 0) {
+      setMovieList({ ...movieList, status: "LOADING" });
       if (movieCategories.categories[0].movies === null) {
-        fetchHome();
+        //must await, else it will continue the code i.e. LOADED before the fetching finishes
+        await fetchHome();
       }
       const list = movieCategories.categories[0].movies;
       setMovieList({ movieList: list, status: "LOADED" });
