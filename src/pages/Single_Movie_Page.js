@@ -23,7 +23,7 @@ export const Single_Movie_Page = () => {
   }
   return (
     <section>
-      <Hero details={details} />s
+      <Hero details={details} />
       <Info
         details={details}
         cast={credits.cast}

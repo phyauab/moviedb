@@ -1,15 +1,13 @@
 import React from "react";
-import data from "../data/data";
 
-// Search for a movie, tv or actor...
-
-export const Hero = () => {
-  const { results } = data;
-  const heroImg = `https://image.tmdb.org/t/p/original${results[0].backdrop_path}`;
+export const Hero = ({ heroImg }) => {
+  console.log(heroImg);
+  // const { results } = data;
+  // const heroImg = `https://image.tmdb.org/t/p/original${results[0].backdrop_path}`;
   return (
     <section
       style={{
-        backgroundImage: `linear-gradient(rgba(7, 77, 0, 0.5), rgba(7, 77, 0, 0.5)),url("${heroImg}")`,
+        backgroundImage: `linear-gradient(rgba(7, 77, 0, 0.5), rgba(7, 77, 0, 0.5)),url("https://image.tmdb.org/t/p/original${heroImg}")`,
       }}
       className="bg-fixed bg-cover mb-10"
     >

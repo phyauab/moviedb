@@ -1,21 +1,4 @@
 import React from "react";
-import useMovieContext from "../../context/movie_context";
-import movie_data from "../../data/movie_data";
-
-// const {
-//   backdrop_path,
-//   poster_path,
-//   title,
-//   tagline,
-//   release_date,
-//   runtime,
-//   genres,
-//   vote_average,
-//   overview,
-//   production_companies,
-// } = movie_data;
-// const heroImg = `https://image.tmdb.org/t/p/original${backdrop_path}`;
-// const poster = `https://image.tmdb.org/t/p/original${poster_path}`;
 
 export const Hero = ({ details }) => {
   const {
@@ -39,9 +22,12 @@ export const Hero = ({ details }) => {
       className="bg-fixed bg-cover bg-center mb-10 h-full"
     >
       {/* Content */}
-      <div className="content-center flex flex-col justify-center items-center gap-y-2 py-5 lg:flex-row lg:p-5">
+      <div className="grid justify-center content-center p-5 lg:grid-cols-3 ">
         {/* Poster Left/Top */}
-        <div className="w-48 lg:w-96">
+        <div
+          className="w-48 justify-center content-center
+         lg:w-96"
+        >
           <img
             src={`https://image.tmdb.org/t/p/original${poster_path}`}
             alt="movie_poster"
@@ -50,7 +36,7 @@ export const Hero = ({ details }) => {
         </div>
 
         {/* Hero Info Bottom/Right */}
-        <div className="text-white flex flex-col gap-y-2 lg:mx-10">
+        <div className="justify-center text-white flex flex-col gap-y-2 lg:mx-10 lg:col-span-2">
           {/* Title */}
           <div>
             <h1 className="text-2xl text-center lg:text-4xl">{title}</h1>

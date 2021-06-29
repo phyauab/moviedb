@@ -5,7 +5,6 @@ import Recommendation from "../components/Recommendation";
 
 export const Home_Page = () => {
   const { movieCategories, fetchHome } = useMovieContext();
-  const [heroImg, setHeroImg] = useState("");
 
   useEffect(() => {
     // this is to prevent fetching data every time visit the home page
@@ -23,7 +22,7 @@ export const Home_Page = () => {
 
   return (
     <main>
-      <Hero />
+      <Hero heroImg={movieCategories.categories[0].movies[0].backdrop_path} />
       <Recommendation movieCategories={movieCategories} />
     </main>
   );
