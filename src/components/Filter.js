@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from "react";
-import { useMovieContext } from "../context/movie_context";
+import { React, useState } from "react";
 
 // Filter only makes API fetch when user is in the Movie Page
 export const Filter = ({ genres, certifications }) => {

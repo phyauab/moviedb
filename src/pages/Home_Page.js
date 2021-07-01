@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Hero from "../components/Hero";
 import Recommendation from "../components/Recommendation";

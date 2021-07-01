@@ -2,7 +2,6 @@ import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Card_Person from "../components/Card_Person";
 import Header from "../components/Header";
-import people_data from "../data/people_data";
 
 export const People_Page = () => {
   const { fetchPeople, people } = useMovieContext();

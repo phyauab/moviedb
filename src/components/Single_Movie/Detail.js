@@ -1,7 +1,5 @@
 import { React, useState, useEffect } from "react";
 import Header from "../Header";
-import movie_data from "../../data/movie_data";
-import movie_crew from "../../data/movie_crew";
 
 export const Detail = ({ details, crew }) => {
   const [detail, setDetail] = useState({

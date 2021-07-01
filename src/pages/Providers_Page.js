@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Card_Provider from "../components/Card_Provider";
 
