@@ -1,6 +1,9 @@
 import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
+import Header from "../components/Header";
 import Card_Provider from "../components/Card_Provider";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export const Providers_Page = () => {
   const { providers, fetchProviders } = useMovieContext();
@@ -14,9 +17,9 @@ export const Providers_Page = () => {
   }, []);
 
   if (providers.status === "LOADING") {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   } else if (providers.status === "ERROR") {
-    return <h1>Sorry, something is wrong</h1>;
+    return <Error />;
   }
 
   const sortList = () => {
@@ -27,17 +30,20 @@ export const Providers_Page = () => {
   sortList();
 
   return (
-    <section className="content-center grid justify-center justify-items-center grid-cols-4 gap-y-5 my-10 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
-      {providersList.map((provider) => {
-        const { provider_id, provider_name, logo_path } = provider;
-        return (
-          <Card_Provider
-            key={provider_id}
-            provider_name={provider_name}
-            logo_path={logo_path}
-          />
-        );
-      })}
+    <section className="content-center mt-10">
+      <Header title="Providers" />
+      <div className=" grid justify-center justify-items-center grid-cols-4 gap-y-5 my-10 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
+        {providersList.map((provider) => {
+          const { provider_id, provider_name, logo_path } = provider;
+          return (
+            <Card_Provider
+              key={provider_id}
+              provider_name={provider_name}
+              logo_path={logo_path}
+            />
+          );
+        })}
+      </div>
     </section>
   );
 };

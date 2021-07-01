@@ -1,9 +1,6 @@
 import React from "react";
 
 export const Hero = ({ heroImg }) => {
-  console.log(heroImg);
-  // const { results } = data;
-  // const heroImg = `https://image.tmdb.org/t/p/original${results[0].backdrop_path}`;
   return (
     <section
       style={{
@@ -30,14 +27,6 @@ export const Hero = ({ heroImg }) => {
           </div>
         </form>
       </div>
-
-      {/* <div className="">
-        <img
-          className=""
-          src={`https://image.tmdb.org/t/p/original${a}`}
-          alt="img"
-        />
-      </div> */}
     </section>
   );
 };

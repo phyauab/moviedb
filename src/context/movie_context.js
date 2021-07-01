@@ -8,13 +8,6 @@ import {
   FETCH_UPCOMING_MOVIE,
   FETCH_MOVIE_GENRE,
   FETCH_MOVIE_CERTIFICATIONS,
-  FETCH_FILTER,
-  FETCH_PEOPLE,
-  FETCH_MOVIE_DETAIL,
-  FETCH_MOVIE_CREDITS,
-  FETCH_MOVIE_VIDEOS,
-  FETCH_MOVIE_IMAGES,
-  FETCH_WATCH_PROVIDERS,
   SET_ISLOADING_TRUE,
   SET_ISLOADING_FALSE,
 } from "../constants/action";
@@ -171,21 +164,21 @@ export const MovieProvider = ({ children }) => {
   const fetchHome = async () => {
     setMovieCategories({ ...movieCategories, status: "LOADING" });
     const tempCategories = movieCategories.categories;
-    console.log("fetch movies");
     await Promise.all(
       movieCategories.categories.map(async (movieCategory, i) => {
         const url = `${API_URL}${movieCategory.keyword}${API_KEY}${API_LANGUAGE}${API_PAGE}=1`;
         try {
           const response = await axios.get(url);
-          console.log(response);
+          // console.log(response);
           tempCategories[i].movies = response.data.results;
         } catch (error) {
+          setMovieCategories({ ...movieCategories, status: "ERROR" });
           console.log(error);
+          return;
         }
       })
     );
 
-    //console.log("HOME FETCHED");
     setMovieCategories({ categories: tempCategories, status: "LOADED" });
   };
 
@@ -208,7 +201,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  const filterMovies = async () => {
+  const fetchMovieList = async () => {
     if (movieList.movieList.length === 0) {
       setMovieList({ ...movieList, status: "LOADING" });
       if (movieCategories.categories[0].movies === null) {
@@ -290,7 +283,7 @@ export const MovieProvider = ({ children }) => {
         fetchPeople,
         fetchSingleMovie,
         fetchProviders,
-        filterMovies,
+        fetchMovieList,
       }}
     >
       {children}

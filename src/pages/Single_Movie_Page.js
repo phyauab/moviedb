@@ -3,6 +3,8 @@ import { useMovieContext } from "../context/movie_context";
 import { useParams } from "react-router";
 import Hero from "../components/Single_Movie/Hero";
 import Info from "../components/Single_Movie/Info";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export const Single_Movie_Page = () => {
   const { singleMovie, fetchSingleMovie } = useMovieContext();
@@ -14,9 +16,9 @@ export const Single_Movie_Page = () => {
   }, [id]);
 
   if (singleMovie.status === "LOADING") {
-    return <h1 className="content-center">Loading...</h1>;
+    return <Loading />;
   } else if (singleMovie.status === "ERROR") {
-    return <h1 className="content-center">Sorry, something is wrong</h1>;
+    return <Error />;
   }
   return (
     <section>

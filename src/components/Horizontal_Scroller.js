@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Card_Movie from "./Card_Movie";
 
-export const Horizontal_Scroller = ({ category, movies, isLoading }) => {
+export const Horizontal_Scroller = ({ category, movies }) => {
   return (
     <section className="mb-10">
       <Header title={category} />

@@ -2,6 +2,8 @@ import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Card_Person from "../components/Card_Person";
 import Header from "../components/Header";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export const People_Page = () => {
   const { fetchPeople, people } = useMovieContext();
@@ -15,9 +17,9 @@ export const People_Page = () => {
   }, []);
 
   if (status === "LOADING") {
-    return <h1 className="content-center">LOADING...</h1>;
+    return <Loading />;
   } else if (status === "ERROR") {
-    return <h1 className="content-center">Sorry, something is wrong...</h1>;
+    return <Error />;
   }
 
   return (

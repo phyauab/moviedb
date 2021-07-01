@@ -2,6 +2,8 @@ import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Hero from "../components/Hero";
 import Recommendation from "../components/Recommendation";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export const Home_Page = () => {
   const { movieCategories, fetchHome } = useMovieContext();
@@ -15,9 +17,9 @@ export const Home_Page = () => {
   }, []);
 
   if (movieCategories.status === "LOADING") {
-    return <h1>LOADING...</h1>;
+    return <Loading />;
   } else if (movieCategories.status === "ERROR") {
-    return <h1>Sorry, something is wrong</h1>;
+    return <Error />;
   }
 
   return (

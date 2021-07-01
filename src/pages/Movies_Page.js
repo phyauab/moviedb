@@ -1,8 +1,10 @@
 import { React, useEffect } from "react";
+import { useMovieContext } from "../context/movie_context";
 import Filter from "../components/Filter";
 import Movie_List from "../components/Movie_List";
 import Header from "../components/Header";
-import { useMovieContext } from "../context/movie_context";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 // TODO:
 // 1. FLITER COMPONENT
@@ -11,7 +13,7 @@ import { useMovieContext } from "../context/movie_context";
 // REFERENCE: https://developers.themoviedb.org/3/discover/movie-discover
 
 export const Movies_Page = () => {
-  const { genres, certifications, fetchFilter, movieList, filterMovies } =
+  const { genres, certifications, fetchFilter, movieList, fetchMovieList } =
     useMovieContext();
 
   useEffect(() => {
@@ -19,21 +21,30 @@ export const Movies_Page = () => {
       console.log("fetch filter");
       fetchFilter();
     }
+    fetchMovieList();
   }, []);
 
   return (
-    <main className="content-center mt-10">
+    <section className="content-center mt-10">
       <Header title="Filter" />
       {genres.status === "LOADING" || certifications.status === "LOADING" ? (
-        <h1>Loading...</h1>
+        <Loading />
+      ) : genres.status === "ERROR" || certifications.status === "ERROR" ? (
+        <Error />
       ) : (
         <Filter
           genres={genres.genres}
           certifications={certifications.certifications}
         />
       )}
-      <Movie_List movieList={movieList} filterMovies={filterMovies} />
-    </main>
+      {movieList.status === "LOADING" ? (
+        <Loading />
+      ) : movieList.status === "ERROR" ? (
+        <Error />
+      ) : (
+        <Movie_List movieList={movieList} />
+      )}
+    </section>
   );
 };
 
