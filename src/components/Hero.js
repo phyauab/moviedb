@@ -1,6 +1,13 @@
-import React from "react";
+import { React, useState } from "react";
 
-export const Hero = ({ heroImg }) => {
+export const Hero = ({ heroImg, searchHome }) => {
+  const [keyword, setKeyword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    searchHome(keyword);
+  };
+
   return (
     <section
       style={{
@@ -16,14 +23,19 @@ export const Hero = ({ heroImg }) => {
         </div>
 
         {/* Search */}
-        <form className="">
+        <form className="" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex bg-white rounded-lg">
             <input
               type="text"
               className="flex-1 p-2 rounded-l-lg focus:outline-none md:text-xl"
               placeholder="Search for a movie, tv or actor..."
+              onChange={(e) => {
+                setKeyword(e.target.value);
+              }}
             ></input>
-            <button className="btn lg:px-10 xl:px-16">Search</button>
+            <button type="submit" className="btn lg:px-10 xl:px-16">
+              Search
+            </button>
           </div>
         </form>
       </div>

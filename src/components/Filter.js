@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 
 // Filter only makes API fetch when user is in the Movie Page
-export const Filter = ({ genres, certifications }) => {
+export const Filter = ({ genres, certifications, searchMovies }) => {
   const [keyword, setKeyword] = useState("");
   const [with_genres, setWith_genres] = useState([]);
   // need country: US
@@ -23,11 +23,18 @@ export const Filter = ({ genres, certifications }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(fromReleaseDate);
+
+    // &release_date.gte=2021-01-01&release_date.lte=2021-12-13
     var url =
       "https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate";
-    if (fromReleaseDate !== "" && toReleaseDate !== "") {
-      url += "";
-    }
+    // if (fromReleaseDate !== "" && toReleaseDate !== "") {
+    //   url += "";
+    // }
+
+    if (fromReleaseDate !== "") url += `&release_date.gte=${fromReleaseDate}`;
+
+    if (toReleaseDate !== "") url += `&release_date.lte=${toReleaseDate}`;
 
     if (with_genres !== []) {
       url += `&with_genres=${with_genres}`;
@@ -46,7 +53,13 @@ export const Filter = ({ genres, certifications }) => {
       url += `&vote_average.lte=${upperBound}`;
     }
 
-    //fetchFilter(url);
+    // keywords
+    // &with_keywords=Comedy
+    // if (keyword !== "") {
+    //   url += `&with_keywords=${keyword}`;
+    // }
+
+    searchMovies(url);
   };
 
   const filter_genres = (e) => {
@@ -68,8 +81,6 @@ export const Filter = ({ genres, certifications }) => {
       setCertification(temp_arr);
     }
   };
-
-  const handleInput = (e) => {};
 
   const clearAll = () => {
     // release dates
@@ -230,7 +241,7 @@ export const Filter = ({ genres, certifications }) => {
               </div>
             </div>
             {/* Keywords */}
-            <div className="table-row">
+            {/* <div className="table-row">
               <div className={td}>
                 <label>Keywords </label>
               </div>
@@ -243,7 +254,7 @@ export const Filter = ({ genres, certifications }) => {
                   onChange={(e) => setKeyword(e.target.value)}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

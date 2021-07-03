@@ -168,7 +168,7 @@ export const MovieProvider = ({ children }) => {
     dispatch({ type: SET_ISLOADING_FALSE });
   };
 
-  const fetchHome = async () => {
+  const fetchHome = async (url) => {
     setMovieCategories({ ...movieCategories, status: "LOADING" });
     const tempCategories = movieCategories.categories;
     await Promise.all(
@@ -203,6 +203,32 @@ export const MovieProvider = ({ children }) => {
         certifications: responseCertifications.data.certifications.US,
         status: "LOADED",
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // search for user's input, for movieList
+  const searchMovies = async (url) => {
+    setMovieList({ ...movieList, status: "LOADING" });
+    try {
+      const response = await axios.get(url);
+      setMovieList({
+        ...movieList,
+        movieList: response.data.results,
+        status: "LOADED",
+      });
+    } catch (error) {
+      console.log(error);
+      setMovieList({ ...movieList, status: "ERROR" });
+    }
+  };
+
+  const searchHome = async (keyword) => {
+    // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
+    const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;
+    try {
+      const response = await axios(url);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -338,6 +364,8 @@ export const MovieProvider = ({ children }) => {
         fetchSingleMovie,
         fetchProviders,
         fetchMovieList,
+        searchMovies,
+        searchHome,
       }}
     >
       {children}

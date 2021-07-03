@@ -13,8 +13,14 @@ import Error from "../components/Error";
 // REFERENCE: https://developers.themoviedb.org/3/discover/movie-discover
 
 export const Movies_Page = () => {
-  const { genres, certifications, fetchFilter, movieList, fetchMovieList } =
-    useMovieContext();
+  const {
+    genres,
+    certifications,
+    fetchFilter,
+    movieList,
+    fetchMovieList,
+    searchMovies,
+  } = useMovieContext();
 
   useEffect(() => {
     if (genres.genres.length === 0) {
@@ -35,6 +41,7 @@ export const Movies_Page = () => {
         <Filter
           genres={genres.genres}
           certifications={certifications.certifications}
+          searchMovies={searchMovies}
         />
       )}
       {movieList.status === "LOADING" ? (
