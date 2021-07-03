@@ -19,6 +19,7 @@ const Details = ({ details }) => {
         <img
           className="w-60"
           src={`https://image.tmdb.org/t/p/original${profile_path}`}
+          alt="profile_path"
         />
       </div>
       <div className="flex flex-col gap-3 justify-start w-60">

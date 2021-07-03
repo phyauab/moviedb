@@ -6,6 +6,8 @@ import Error from "../components/Error";
 import Header from "../components/Header";
 import Details from "../components/Single_Person/Details";
 import Bio from "../components/Single_Person/Bio";
+import Cast_List from "../components/Single_Person/Cast_List";
+import Crew_List from "../components/Single_Person/Crew_List";
 
 export const Single_Person_Page = () => {
   const { id } = useParams();
@@ -29,6 +31,12 @@ export const Single_Person_Page = () => {
       <div className="grid gap-5 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <Bio biography={details.biography} />
+          {singlePerson.movies.cast.length > 0 && (
+            <Cast_List cast={singlePerson.movies.cast} />
+          )}
+          {singlePerson.movies.crew.length > 0 && (
+            <Crew_List crew={singlePerson.movies.crew} />
+          )}
         </div>
         <Details details={details} />
       </div>

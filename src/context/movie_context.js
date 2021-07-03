@@ -129,6 +129,7 @@ const initialMovieList = {
 const initialSinglePerson = {
   status: "LOADING",
   details: null,
+  movies: null,
 };
 
 export const MovieProvider = ({ children }) => {
@@ -248,12 +249,42 @@ export const MovieProvider = ({ children }) => {
   // person
   const fetchSinglePerson = async (id) => {
     // https://api.themoviedb.org/3/person/18918?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
-    const url = `${API_URL}/person/${id}${API_KEY}${API_LANGUAGE}`;
+    const urlDetails = `${API_URL}/person/${id}${API_KEY}${API_LANGUAGE}`;
+    // https://api.themoviedb.org/3/person/18918/movie_credits?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    const urlMovies = `${API_URL}/person/${id}/movie_credits${API_KEY}${API_LANGUAGE}`;
     setSinglePerson({ ...singlePerson, status: "LOADING" });
+
     try {
-      const response = await axios.get(url);
-      console.log(response);
-      setSinglePerson({ status: "LOADED", details: response.data });
+      const responseDetails = await axios.get(urlDetails);
+      console.log(urlMovies);
+
+      // movies
+      const responseMovies = await axios.get(urlMovies);
+      console.log(responseMovies);
+      const tempMovies = responseMovies.data;
+      tempMovies.cast.sort(function (a, b) {
+        const y1 = new Date(a.release_date).getFullYear();
+        const y2 = new Date(b.release_date).getFullYear();
+        if (y1 > y2) return 1;
+        else if (y1 < y2) return -1;
+        return 0;
+      });
+      tempMovies.cast.reverse();
+      tempMovies.crew.sort(function (a, b) {
+        const y1 = new Date(a.release_date).getFullYear();
+        const y2 = new Date(b.release_date).getFullYear();
+        if (y1 > y2) return 1;
+        else if (y1 < y2) return -1;
+        return 0;
+      });
+      tempMovies.crew.reverse();
+      // movies
+
+      setSinglePerson({
+        status: "LOADED",
+        details: responseDetails.data,
+        movies: tempMovies,
+      });
     } catch (error) {
       console.log(error);
       setSinglePerson({ ...singlePerson, status: "ERROR" });

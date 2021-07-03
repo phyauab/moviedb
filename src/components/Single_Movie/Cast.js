@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../Header";
 
 export const Cast = ({ cast }) => {
@@ -11,18 +12,20 @@ export const Cast = ({ cast }) => {
   for (let i = 0; i < length && cast[i] !== undefined; ++i) {
     const { id, name, character, profile_path } = cast[i];
     const element = (
-      <div key={id} className="flex shadow-md">
-        <div className="w-28 h-28 rounded-lg overflow-hidden">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-            alt="Cast"
-          />
+      <Link to={`/people/${id}`}>
+        <div key={id} className="flex shadow-md">
+          <div className="w-28 h-28 rounded-lg overflow-hidden">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+              alt="Cast"
+            />
+          </div>
+          <div className="px-5">
+            <h1 className="font-bold">{name}</h1>
+            <p className="text-gray-500">as {character}</p>
+          </div>
         </div>
-        <div className="px-5">
-          <h1 className="font-bold">{name}</h1>
-          <p className="text-gray-500">as {character}</p>
-        </div>
-      </div>
+      </Link>
     );
     if (i < 10) castArr.push(element);
     else allCastArr.push(element);
