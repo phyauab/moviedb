@@ -4,5 +4,6 @@ import Single_Movie from "./Single_Movie_Page";
 import Providers from "./Providers_Page";
 import People from "./People_Page";
 import About from "./About_Page";
+import Single_Person from "./Single_Person_Page";
 
-export { Home, Movies, Single_Movie, Providers, People, About };
+export { Home, Movies, Single_Movie, Providers, People, Single_Person, About };

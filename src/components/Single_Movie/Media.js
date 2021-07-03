@@ -34,7 +34,7 @@ export const Media = ({ videos, images }) => {
     <section className="mb-10">
       <Header title={"Media"} />
       {/* Video */}
-      <div>
+      <div className="mb-5">
         <h1 className="font-semibold">Videos</h1>
         <div className="flex py-5 whitespace-nowrap overflow-x-scroll max-w-3xl md:px-0">
           {videoList.map((video) => {
@@ -51,7 +51,7 @@ export const Media = ({ videos, images }) => {
       </div>
 
       {/* Backdrops */}
-      <div>
+      <div className="mb-5">
         <h1 className="font-semibold">Backdrops</h1>
         <div className="flex py-5 whitespace-nowrap overflow-x-scroll max-w-3xl md:px-0">
           {backdropList.map((backdrop, index) => {
@@ -67,7 +67,7 @@ export const Media = ({ videos, images }) => {
         </div>
       </div>
 
-      <div>
+      <div className="mb-5">
         <h1 className="font-semibold">Posters</h1>
         <div className="flex py-5 whitespace-nowrap overflow-x-scroll max-w-3xl md:px-0">
           {posterList.map((poster, index) => {

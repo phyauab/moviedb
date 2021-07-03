@@ -32,6 +32,7 @@ export const People_Page = () => {
           return (
             <Card_Person
               key={id}
+              id={id}
               name={name}
               img={profile_path}
               known_for={known_for}

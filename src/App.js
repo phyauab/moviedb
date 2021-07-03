@@ -2,7 +2,15 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 
-import { Home, Movies, Single_Movie, Providers, People, About } from "./pages";
+import {
+  Home,
+  Movies,
+  Single_Movie,
+  Providers,
+  People,
+  Single_Person,
+  About,
+} from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -21,9 +29,10 @@ function App() {
         <Route path="/providers">
           <Providers />
         </Route>
-        <Route path="/people">
+        <Route exact path="/people">
           <People />
         </Route>
+        <Route path="/people/:id" children={<Single_Person />} />
         <Route path="/about">
           <About />
         </Route>

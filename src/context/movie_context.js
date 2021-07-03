@@ -126,6 +126,11 @@ const initialMovieList = {
   movieList: [],
 };
 
+const initialSinglePerson = {
+  status: "LOADING",
+  details: null,
+};
+
 export const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [movieCategories, setMovieCategories] = useState(
@@ -137,6 +142,7 @@ export const MovieProvider = ({ children }) => {
   const [genres, setGenres] = useState(initialGenres);
   const [certifications, setCertifications] = useState(initialCertifications);
   const [movieList, setMovieList] = useState(initialMovieList);
+  const [singlePerson, setSinglePerson] = useState(initialSinglePerson);
 
   const fetchAPI = async (action, url) => {
     console.log("WARNING: FETCHING");
@@ -239,6 +245,21 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+  // person
+  const fetchSinglePerson = async (id) => {
+    // https://api.themoviedb.org/3/person/18918?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
+    const url = `${API_URL}/person/${id}${API_KEY}${API_LANGUAGE}`;
+    setSinglePerson({ ...singlePerson, status: "LOADING" });
+    try {
+      const response = await axios.get(url);
+      console.log(response);
+      setSinglePerson({ status: "LOADED", details: response.data });
+    } catch (error) {
+      console.log(error);
+      setSinglePerson({ ...singlePerson, status: "ERROR" });
+    }
+  };
+
   // movie detail + credit + videos + images
   const fetchSingleMovie = async (id) => {
     setSingleMovie({ ...singleMovie, status: "LOADING" });
@@ -275,12 +296,14 @@ export const MovieProvider = ({ children }) => {
         singleMovie,
         providers,
         people,
+        singlePerson,
         genres,
         certifications,
         movieList,
         fetchHome,
         fetchFilter,
         fetchPeople,
+        fetchSinglePerson,
         fetchSingleMovie,
         fetchProviders,
         fetchMovieList,

@@ -1,15 +1,16 @@
-import React from "react";
+import { React, useState } from "react";
 import Header from "../Header";
-import data from "../../data/movie_crew";
-
-const { cast } = data;
 
 export const Cast = ({ cast }) => {
   const castArr = [];
-  const length = cast.length < 11 ? cast.length : 10;
-  for (let i = 0; i < length; ++i) {
+  const allCastArr = [];
+  const [showAll, setShowAll] = useState(false);
+
+  // show only 10 initially
+  const length = cast.length;
+  for (let i = 0; i < length && cast[i] !== undefined; ++i) {
     const { id, name, character, profile_path } = cast[i];
-    castArr.push(
+    const element = (
       <div key={id} className="flex shadow-md">
         <div className="w-28 h-28 rounded-lg overflow-hidden">
           <img
@@ -23,17 +24,28 @@ export const Cast = ({ cast }) => {
         </div>
       </div>
     );
+    if (i < 10) castArr.push(element);
+    else allCastArr.push(element);
   }
 
   return (
     <div className="mb-10">
       <Header title="Cast" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{castArr}</div>
-      <div className="my-2">
-        <p className="text-blue-600 text-right hover:underline">
-          <a href="#">See all cast</a>
-        </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {castArr}
+        {showAll && allCastArr}
       </div>
+
+      {allCastArr.length > 0 && (
+        <div className="my-2 flex justify-end">
+          <button
+            className="text-blue-600 text-right hover:underline"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "See Less" : "See More"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
