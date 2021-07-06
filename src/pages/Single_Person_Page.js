@@ -6,8 +6,8 @@ import Error from "../components/Error";
 import Header from "../components/Header";
 import Details from "../components/Single_Person/Details";
 import Bio from "../components/Single_Person/Bio";
-import Cast_List from "../components/Single_Person/Cast_List";
-import Crew_List from "../components/Single_Person/Crew_List";
+import CastList from "../components/Single_Person/CastList";
+import CrewList from "../components/Single_Person/CrewList";
 
 export const Single_Person_Page = () => {
   const { id } = useParams();
@@ -17,6 +17,7 @@ export const Single_Person_Page = () => {
   useEffect(() => {
     console.log("FETCH SINGLE PERSON");
     fetchSinglePerson(id);
+    // eslint-disable-next-line
   }, [id]);
 
   if (singlePerson.status === "LOADING") {
@@ -32,10 +33,10 @@ export const Single_Person_Page = () => {
         <div className="lg:col-span-2">
           <Bio biography={details.biography} />
           {singlePerson.movies.cast.length > 0 && (
-            <Cast_List cast={singlePerson.movies.cast} />
+            <CastList cast={singlePerson.movies.cast} />
           )}
           {singlePerson.movies.crew.length > 0 && (
-            <Crew_List crew={singlePerson.movies.crew} />
+            <CrewList crew={singlePerson.movies.crew} />
           )}
         </div>
         <Details details={details} />

@@ -1,22 +1,22 @@
-import React from "react";
+import { React } from "react";
 import Header from "../Header";
 import { Link } from "react-router-dom";
 
-const Crew_List = ({ crew }) => {
+const CastList = ({ cast }) => {
   return (
     <div className="mb-10 w-full">
-      <Header title="Crew" />
+      <Header title="Cast" />
       <table className="table-auto w-full">
         <thead>
           <tr>
             <th>Year</th>
             <th>Title</th>
-            <th>Job</th>
+            <th>Character</th>
           </tr>
         </thead>
         <tbody className="font-semibold">
-          {crew.map((member) => {
-            const { id, release_date, title, job } = member;
+          {cast.map((movie) => {
+            const { id, release_date, title, character } = movie;
             return (
               <tr key={id} className="border-b-2">
                 <td className="whitespace-nowrap py-2">
@@ -27,7 +27,7 @@ const Crew_List = ({ crew }) => {
                     <p className="hover:text-green-900">{title || "-"}</p>
                   </Link>
                 </td>
-                <td classNam="py-2">{job || "-"}</td>
+                <td classNam="py-2">{character || "-"}</td>
               </tr>
             );
           })}
@@ -37,4 +37,4 @@ const Crew_List = ({ crew }) => {
   );
 };
 
-export default Crew_List;
+export default CastList;

@@ -1,19 +1,16 @@
-import React, { useContext, useReducer, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import reducer from "../reducer/movie_reducer";
-import {
-  FETCH_TRENDING_MOVIE,
-  FETCH_POPULAR_MOVIE,
-  FETCH_TOP_RATED_MOVIE,
-  FETCH_UPCOMING_MOVIE,
-  FETCH_MOVIE_GENRE,
-  FETCH_MOVIE_CERTIFICATIONS,
-  SET_ISLOADING_TRUE,
-  SET_ISLOADING_FALSE,
-} from "../constants/action";
-import popular_movie_data from "../data/popular_movie_data";
-import genre_data from "../data/genre_data";
-import certifications_data from "../data/certifications_data";
+// import reducer from "../reducer/movie_reducer";
+// import {
+//   FETCH_TRENDING_MOVIE,
+//   FETCH_POPULAR_MOVIE,
+//   FETCH_TOP_RATED_MOVIE,
+//   FETCH_UPCOMING_MOVIE,
+//   FETCH_MOVIE_GENRE,
+//   FETCH_MOVIE_CERTIFICATIONS,
+//   SET_ISLOADING_TRUE,
+//   SET_ISLOADING_FALSE,
+// } from "../constants/action";
 
 const MovieContext = React.createContext();
 const API_URL = "https://api.themoviedb.org/3";
@@ -26,46 +23,46 @@ const API_PAGE = "&page";
 // rule3: pages feed data to components
 // rule4: unless a page is ready, don't show
 
-const initialState = {
-  movieCategories: [
-    {
-      category: "Trending",
-      keyword: "/trending/movie/day",
-      action: FETCH_TRENDING_MOVIE,
-      movies: null,
-    },
-    {
-      category: "Popular",
-      keyword: "/movie/popular",
-      action: FETCH_POPULAR_MOVIE,
-      movies: null,
-    },
-    {
-      category: "Top Rated",
-      keyword: "/movie/top_rated",
-      action: FETCH_TOP_RATED_MOVIE,
-      movies: null,
-    },
-    {
-      category: "Upcoming",
-      keyword: "/movie/upcoming",
-      action: FETCH_UPCOMING_MOVIE,
-      movies: null,
-    },
-  ],
-  genres: genre_data.genres,
-  certifications: certifications_data.certifications.US,
-  displayMovies: popular_movie_data.results,
-  people: [],
-  singleMovie: {
-    details: null,
-    credits: null,
-    videos: null,
-    images: null,
-  },
-  isLoading: false,
-  watchProviders: null,
-};
+// const initialState = {
+//   movieCategories: [
+//     {
+//       category: "Trending",
+//       keyword: "/trending/movie/day",
+//       action: FETCH_TRENDING_MOVIE,
+//       movies: null,
+//     },
+//     {
+//       category: "Popular",
+//       keyword: "/movie/popular",
+//       action: FETCH_POPULAR_MOVIE,
+//       movies: null,
+//     },
+//     {
+//       category: "Top Rated",
+//       keyword: "/movie/top_rated",
+//       action: FETCH_TOP_RATED_MOVIE,
+//       movies: null,
+//     },
+//     {
+//       category: "Upcoming",
+//       keyword: "/movie/upcoming",
+//       action: FETCH_UPCOMING_MOVIE,
+//       movies: null,
+//     },
+//   ],
+//   genres: genre_data.genres,
+//   certifications: certifications_data.certifications.US,
+//   displayMovies: popular_movie_data.results,
+//   people: [],
+//   singleMovie: {
+//     details: null,
+//     credits: null,
+//     videos: null,
+//     images: null,
+//   },
+//   isLoading: false,
+//   watchProviders: null,
+// };
 
 const initialSingleMovie = {
   status: "LOADING",
@@ -133,7 +130,7 @@ const initialSinglePerson = {
 };
 
 export const MovieProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
   const [movieCategories, setMovieCategories] = useState(
     initialMovieCategories
   );
@@ -145,28 +142,28 @@ export const MovieProvider = ({ children }) => {
   const [movieList, setMovieList] = useState(initialMovieList);
   const [singlePerson, setSinglePerson] = useState(initialSinglePerson);
 
-  const fetchAPI = async (action, url) => {
-    console.log("WARNING: FETCHING");
-    try {
-      const response = await axios.get(url);
-      //console.log(response);
-      dispatch({ type: action, payload: response });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchAPI = async (action, url) => {
+  //   console.log("WARNING: FETCHING");
+  //   try {
+  //     const response = await axios.get(url);
+  //     //console.log(response);
+  //     dispatch({ type: action, payload: response });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // genres + certifications
-  const fetchFilter2 = async () => {
-    dispatch({ type: SET_ISLOADING_TRUE });
-    // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
-    const urlGenres = `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
-    // https://api.themoviedb.org/3/certification/movie/list?api_key=<<api_key>>
-    const urlCertifications = `${API_URL}/certification/movie/list?api_key=${API_KEY}`;
-    fetchAPI(FETCH_MOVIE_GENRE, urlGenres);
-    fetchAPI(FETCH_MOVIE_CERTIFICATIONS, urlCertifications);
-    dispatch({ type: SET_ISLOADING_FALSE });
-  };
+  // const fetchFilter2 = async () => {
+  //   dispatch({ type: SET_ISLOADING_TRUE });
+  //   // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
+  //   const urlGenres = `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+  //   // https://api.themoviedb.org/3/certification/movie/list?api_key=<<api_key>>
+  //   const urlCertifications = `${API_URL}/certification/movie/list?api_key=${API_KEY}`;
+  //   fetchAPI(FETCH_MOVIE_GENRE, urlGenres);
+  //   fetchAPI(FETCH_MOVIE_CERTIFICATIONS, urlCertifications);
+  //   dispatch({ type: SET_ISLOADING_FALSE });
+  // };
 
   const fetchHome = async (url) => {
     setMovieCategories({ ...movieCategories, status: "LOADING" });
@@ -223,6 +220,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+  // search of homeHero
   const searchHome = async (keyword) => {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;

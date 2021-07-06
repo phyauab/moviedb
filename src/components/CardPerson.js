@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Card_Person = ({ id, img, name, known_for }) => {
+export const CardPerson = ({ id, img, name, known_for }) => {
   return (
     <div className="w-52 shadow-lg rounded-lg overflow-hidden cursor-pointer">
       <Link to={`/people/${id}`}>
@@ -22,4 +22,4 @@ export const Card_Person = ({ id, img, name, known_for }) => {
   );
 };
 
-export default Card_Person;
+export default CardPerson;

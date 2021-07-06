@@ -14,6 +14,7 @@ export const Home_Page = () => {
       console.log("FETCH HOME");
       fetchHome();
     }
+    // eslint-disable-next-line
   }, []);
 
   if (movieCategories.status === "LOADING") {

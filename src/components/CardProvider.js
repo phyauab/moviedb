@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Card_Provider = ({ provider_name, logo_path }) => {
+export const CardProvider = ({ provider_name, logo_path }) => {
   //https://image.tmdb.org/t/p/w500/2DpMZHxP9jzu3v70bph1UD3LLv3.jpg
   return (
     <div className="w-32 shadow-lg rounded-lg overflow-hidden cursor-pointer">
@@ -10,4 +10,4 @@ export const Card_Provider = ({ provider_name, logo_path }) => {
   );
 };
 
-export default Card_Provider;
+export default CardProvider;

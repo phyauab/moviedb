@@ -12,4 +12,9 @@ function compareMoviesDates(a, b) {
   return 0;
 }
 
-export default { compareCertifications, compareMoviesDates };
+const exportedObject = {
+  compareCertifications,
+  compareMoviesDates,
+};
+
+export default exportedObject;

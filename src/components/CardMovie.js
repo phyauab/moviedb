@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Card_Movie = ({
+export const CardMovie = ({
   id,
   title,
   release_date,
@@ -44,4 +44,4 @@ export const Card_Movie = ({
   );
 };
 
-export default Card_Movie;
+export default CardMovie;

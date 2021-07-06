@@ -13,6 +13,7 @@ export const Single_Movie_Page = () => {
 
   useEffect(() => {
     fetchSingleMovie(id);
+    // eslint-disable-next-line
   }, [id]);
 
   if (singleMovie.status === "LOADING") {

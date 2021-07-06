@@ -5,9 +5,9 @@ const Details = ({ details }) => {
   const {
     name,
     birthday,
-    deathday,
+    //   deathday,
     gender,
-    hompage,
+    //    hompage,
     place_of_birth,
     profile_path,
     also_known_as,

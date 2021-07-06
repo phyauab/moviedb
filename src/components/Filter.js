@@ -2,7 +2,7 @@ import { React, useState } from "react";
 
 // Filter only makes API fetch when user is in the Movie Page
 export const Filter = ({ genres, certifications, searchMovies }) => {
-  const [keyword, setKeyword] = useState("");
+  //const [keyword, setKeyword] = useState("");
   const [with_genres, setWith_genres] = useState([]);
   // need country: US
   // https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&certification_country=US&certification=NR&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate
@@ -91,26 +91,38 @@ export const Filter = ({ genres, certifications, searchMovies }) => {
 
     // genres
     setWith_genres([]);
-    genres.map((genre) => {
-      const id = genre.name;
+    // genres.map((genre) => {
+    //   const id = genre.name;
+    //   const chkbox = document.getElementById(id);
+    //   chkbox.checked = false;
+    // });
+    const genresLength = genres.length;
+    for (let i = 0; i < genresLength; ++i) {
+      const id = genres[i].name;
       const chkbox = document.getElementById(id);
       chkbox.checked = false;
-    });
+    }
 
     // certifications
     setCertification([]);
-    certifications.map((certification) => {
-      const id = certification.order;
+    // certifications.map((certification) => {
+    //   const id = certification.order;
+    //   const chkbox = document.getElementById(id);
+    //   chkbox.checked = false;
+    // });
+    const certificationsLength = certifications.length;
+    for (let i = 0; i < certificationsLength; ++i) {
+      const id = certifications[i].order;
       const chkbox = document.getElementById(id);
       chkbox.checked = false;
-    });
+    }
 
     // user score
     setLowerBound(0);
     setUpperBound(10);
 
     // keyword
-    setKeyword("");
+    //setKeyword("");
   };
 
   const td = "table-cell pb-2";

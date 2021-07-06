@@ -1,6 +1,6 @@
 import React from "react";
 import { useMovieContext } from "../context/movie_context";
-import { Horizontal_Scroller } from "./Horizontal_Scroller";
+import HorizontalScroller from "./HorizontalScroller";
 
 export const Recommendation = () => {
   const { movieCategories } = useMovieContext();
@@ -12,11 +12,7 @@ export const Recommendation = () => {
         const { category, movies } = item;
         //console.log("movies: " + movies);
         return (
-          <Horizontal_Scroller
-            key={index}
-            category={category}
-            movies={movies}
-          />
+          <HorizontalScroller key={index} category={category} movies={movies} />
         );
       })}
     </section>

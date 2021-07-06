@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export default {
   page: 1,
   results: [

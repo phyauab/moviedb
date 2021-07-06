@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Header from "../components/Header";
-import Card_Provider from "../components/Card_Provider";
+import CardProvider from "../components/CardProvider";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
@@ -14,6 +14,7 @@ export const Providers_Page = () => {
       console.log("useEffect fetchProviders");
       fetchProviders();
     }
+    // eslint-disable-next-line
   }, []);
 
   if (providers.status === "LOADING") {
@@ -23,9 +24,11 @@ export const Providers_Page = () => {
   }
 
   const sortList = () => {
-    providers.providers.map((provider) => {
-      if (provider.display_priority < 10) providersList.push(provider);
-    });
+    const length = providers.providers.length;
+    for (let i = 0; i < length; ++i) {
+      if (providers.providers[i].display_priority < 10)
+        providersList.push(providers.providers[i]);
+    }
   };
   sortList();
 
@@ -36,7 +39,7 @@ export const Providers_Page = () => {
         {providersList.map((provider) => {
           const { provider_id, provider_name, logo_path } = provider;
           return (
-            <Card_Provider
+            <CardProvider
               key={provider_id}
               provider_name={provider_name}
               logo_path={logo_path}

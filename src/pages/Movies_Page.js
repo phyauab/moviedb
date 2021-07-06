@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Filter from "../components/Filter";
-import Movie_List from "../components/Movie_List";
+import MovieList from "../components/MovieList";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -28,6 +28,7 @@ export const Movies_Page = () => {
       fetchFilter();
     }
     fetchMovieList();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -49,7 +50,7 @@ export const Movies_Page = () => {
       ) : movieList.status === "ERROR" ? (
         <Error />
       ) : (
-        <Movie_List movieList={movieList} />
+        <MovieList movieList={movieList} />
       )}
     </section>
   );

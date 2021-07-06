@@ -42,6 +42,7 @@ export const Detail = ({ details, crew }) => {
       budget: budget,
       revenue: revenue,
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -55,7 +56,7 @@ export const Detail = ({ details, crew }) => {
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </p>
               <p>
-                {key == "revenue" || key == "budget"
+                {key === "revenue" || key === "budget"
                   ? parseInt(detail[key]).toLocaleString("en-US", {
                       style: "currency",
                       currency: "USD",

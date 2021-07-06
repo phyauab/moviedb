@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./Header";
-import Card_Movie from "./Card_Movie";
+import CardMovie from "./CardMovie";
 
-export const Horizontal_Scroller = ({ category, movies }) => {
+export const HorizontalScroller = ({ category, movies }) => {
   return (
     <section className="mb-10">
       <Header title={category} />
@@ -10,7 +10,7 @@ export const Horizontal_Scroller = ({ category, movies }) => {
         {movies.map((movie) => {
           const { id, title, release_date, vote_average, poster_path } = movie;
           return (
-            <Card_Movie
+            <CardMovie
               key={id}
               id={id}
               title={title}
@@ -25,4 +25,4 @@ export const Horizontal_Scroller = ({ category, movies }) => {
   );
 };
 
-export default Horizontal_Scroller;
+export default HorizontalScroller;

@@ -14,13 +14,13 @@ export const Media = ({ videos, images }) => {
     }
 
     const tempBackdropList = [];
-    var length = images.backdrops.length < 5 ? images.backdrops.length : 5;
+    length = images.backdrops.length < 5 ? images.backdrops.length : 5;
     for (let i = 0; i < length; ++i) {
       tempBackdropList.push(images.backdrops[i]);
     }
 
     const tempPosterList = [];
-    var length = images.posters.length < 10 ? images.posters.length : 10;
+    length = images.posters.length < 10 ? images.posters.length : 10;
     for (let i = 0; i < length; ++i) {
       tempPosterList.push(images.posters[i]);
     }
@@ -28,6 +28,7 @@ export const Media = ({ videos, images }) => {
     setVideoList(tempMovieList);
     setBackdropList(tempBackdropList);
     setPosterList(tempPosterList);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -38,9 +39,10 @@ export const Media = ({ videos, images }) => {
         <h1 className="font-semibold">Videos</h1>
         <div className="flex py-5 whitespace-nowrap overflow-x-scroll max-w-3xl md:px-0">
           {videoList.map((video) => {
-            const { id, key } = video;
+            const { id, key, name } = video;
             return (
               <iframe
+                title={name}
                 key={id}
                 className="w-full"
                 src={`https://www.youtube.com/embed/${key}`}
@@ -61,12 +63,14 @@ export const Media = ({ videos, images }) => {
                 key={index}
                 src={`https://image.tmdb.org/t/p/original${file_path}`}
                 className="w-80"
+                alt="Backdrops"
               />
             );
           })}
         </div>
       </div>
 
+      {/* Posters */}
       <div className="mb-5">
         <h1 className="font-semibold">Posters</h1>
         <div className="flex py-5 whitespace-nowrap overflow-x-scroll max-w-3xl md:px-0">
@@ -77,6 +81,7 @@ export const Media = ({ videos, images }) => {
                 key={index}
                 src={`https://image.tmdb.org/t/p/original${file_path}`}
                 className="w-36"
+                alt="Poster"
               />
             );
           })}

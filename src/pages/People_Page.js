@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { useMovieContext } from "../context/movie_context";
-import Card_Person from "../components/Card_Person";
+import CardPerson from "../components/CardPerson";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -14,6 +14,7 @@ export const People_Page = () => {
       console.log("fetch people");
       fetchPeople();
     }
+    // eslint-disable-next-line
   }, []);
 
   if (status === "LOADING") {
@@ -30,7 +31,7 @@ export const People_Page = () => {
         {people.people.map((person) => {
           const { id, name, profile_path, known_for } = person;
           return (
-            <Card_Person
+            <CardPerson
               key={id}
               id={id}
               name={name}

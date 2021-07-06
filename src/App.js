@@ -5,10 +5,10 @@ import Footer from "./components/Footer";
 import {
   Home,
   Movies,
-  Single_Movie,
+  SingleMovie,
   Providers,
   People,
-  Single_Person,
+  SinglePerson,
   About,
 } from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -25,14 +25,14 @@ function App() {
         <Route exact path="/movies">
           <Movies />
         </Route>
-        <Route path="/movies/:id" children={<Single_Movie />} />
+        <Route path="/movies/:id" children={<SingleMovie />} />
         <Route path="/providers">
           <Providers />
         </Route>
         <Route exact path="/people">
           <People />
         </Route>
-        <Route path="/people/:id" children={<Single_Person />} />
+        <Route path="/people/:id" children={<SinglePerson />} />
         <Route path="/about">
           <About />
         </Route>
