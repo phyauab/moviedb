@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 
 import {
   Home,
+  SearchResult,
   Movies,
   SingleMovie,
   Providers,
@@ -35,6 +36,9 @@ function App() {
         <Route path="/people/:id" children={<SinglePerson />} />
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/search">
+          <SearchResult />
         </Route>
       </Switch>
       <Footer />

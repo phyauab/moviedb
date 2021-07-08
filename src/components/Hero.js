@@ -1,11 +1,20 @@
 import { React, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-export const Hero = ({ heroImg, searchHome }) => {
+export const Hero = ({ heroImg, search }) => {
   const [keyword, setKeyword] = useState("");
 
+  const history = useHistory();
+
   const handleSubmit = (e) => {
+    console.log("HI");
+    history.push({
+      pathname: "/search",
+      state: { keyword: keyword },
+    });
     e.preventDefault();
-    searchHome(keyword);
+
+    //search(keyword);
   };
 
   return (

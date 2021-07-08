@@ -205,7 +205,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
   // search for user's input, for movieList
-  const searchMovies = async (url) => {
+  const filterMovies = async (url) => {
     setMovieList({ ...movieList, status: "LOADING" });
     try {
       const response = await axios.get(url);
@@ -221,7 +221,7 @@ export const MovieProvider = ({ children }) => {
   };
 
   // search of homeHero
-  const searchHome = async (keyword) => {
+  const search = async (keyword) => {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;
     try {
@@ -362,8 +362,8 @@ export const MovieProvider = ({ children }) => {
         fetchSingleMovie,
         fetchProviders,
         fetchMovieList,
-        searchMovies,
-        searchHome,
+        filterMovies,
+        search,
       }}
     >
       {children}

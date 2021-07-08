@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 
 export const Home_Page = () => {
-  const { movieCategories, fetchHome, searchHome } = useMovieContext();
+  const { movieCategories, fetchHome, search } = useMovieContext();
 
   useEffect(() => {
     // this is to prevent fetching data every time visit the home page
@@ -27,7 +27,7 @@ export const Home_Page = () => {
     <main>
       <Hero
         heroImg={movieCategories.categories[0].movies[0].backdrop_path}
-        searchHome={searchHome}
+        search={search}
       />
       <Recommendation movieCategories={movieCategories} />
     </main>

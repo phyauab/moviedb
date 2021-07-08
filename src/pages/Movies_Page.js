@@ -19,7 +19,7 @@ export const Movies_Page = () => {
     fetchFilter,
     movieList,
     fetchMovieList,
-    searchMovies,
+    filterMovies,
   } = useMovieContext();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const Movies_Page = () => {
         <Filter
           genres={genres.genres}
           certifications={certifications.certifications}
-          searchMovies={searchMovies}
+          filterMovies={filterMovies}
         />
       )}
       {movieList.status === "LOADING" ? (

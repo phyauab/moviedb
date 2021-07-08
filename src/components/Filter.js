@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 
 // Filter only makes API fetch when user is in the Movie Page
-export const Filter = ({ genres, certifications, searchMovies }) => {
+export const Filter = ({ genres, certifications, filterMovies }) => {
   //const [keyword, setKeyword] = useState("");
   const [with_genres, setWith_genres] = useState([]);
   // need country: US
@@ -59,7 +59,7 @@ export const Filter = ({ genres, certifications, searchMovies }) => {
     //   url += `&with_keywords=${keyword}`;
     // }
 
-    searchMovies(url);
+    filterMovies(url);
   };
 
   const filter_genres = (e) => {
