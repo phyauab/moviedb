@@ -18,6 +18,7 @@ const Search_Result_Page = () => {
   useEffect(() => {
     if (location.state) {
       setKeyword(location.state.keyword);
+      search(location.state.keyword);
     }
     // eslint-disable-next-line
   }, []);

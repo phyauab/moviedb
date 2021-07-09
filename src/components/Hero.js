@@ -7,7 +7,6 @@ export const Hero = ({ heroImg }) => {
   const history = useHistory();
 
   const handleSubmit = (e) => {
-    console.log("HI");
     history.push({
       pathname: "/search",
       state: { keyword: keyword },
