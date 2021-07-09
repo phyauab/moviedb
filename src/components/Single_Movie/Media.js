@@ -61,7 +61,7 @@ export const Media = ({ videos, images }) => {
             return (
               <img
                 key={index}
-                src={`https://image.tmdb.org/t/p/original${file_path}`}
+                src={`https://image.tmdb.org/t/p/w300${file_path}`}
                 className="w-80"
                 alt="Backdrops"
               />
@@ -79,7 +79,7 @@ export const Media = ({ videos, images }) => {
             return (
               <img
                 key={index}
-                src={`https://image.tmdb.org/t/p/original${file_path}`}
+                src={`https://image.tmdb.org/t/p/w154${file_path}`}
                 className="w-36"
                 alt="Poster"
               />

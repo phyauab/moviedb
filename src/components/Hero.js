@@ -12,8 +12,6 @@ export const Hero = ({ heroImg }) => {
       state: { keyword: keyword },
     });
     e.preventDefault();
-
-    //search(keyword);
   };
 
   return (

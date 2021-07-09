@@ -16,7 +16,7 @@ export const Cast = ({ cast }) => {
         <div key={id} className="flex shadow-md">
           <div className="w-28 h-28 rounded-lg overflow-hidden">
             <img
-              src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+              src={`https://image.tmdb.org/t/p/w185${profile_path}`}
               alt="Cast"
             />
           </div>

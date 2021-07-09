@@ -46,7 +46,7 @@ export const Detail = ({ details, crew }) => {
   }, []);
 
   return (
-    <div>
+    <div classNam="mb-10">
       <Header title="Detail" />
       <div className="flex flex-col gap-3">
         {Object.keys(detail).map((key, index) => {

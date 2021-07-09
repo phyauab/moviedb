@@ -230,14 +230,11 @@ export const MovieProvider = ({ children }) => {
   const search = async (keyword) => {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;
-    console.log("searching: " + keyword);
     try {
       setSearchResults({ ...searchResults, status: "LOADING" });
       const response = await axios(url);
       console.log(response.data.results);
-      console.log("merging");
       setSearchResults({ movies: response.data.results, status: "LOADED" });
-      console.log("merged: " + searchResults.movies);
     } catch (error) {
       console.log(error);
       setSearchResults({ ...searchResults, status: "ERROR" });

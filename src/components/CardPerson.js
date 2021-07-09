@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 
 export const CardPerson = ({ id, img, name, known_for }) => {
   return (
-    <div className="w-52 shadow-lg rounded-lg overflow-hidden cursor-pointer">
+    <div className="w-52 shadow-lg rounded-lg overflow-hidden cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
       <Link to={`/people/${id}`}>
-        <div>
-          <img src={`https://image.tmdb.org/t/p/w500${img}`} alt="actor_pic" />
+        <div className="w-full">
+          <img
+            src={`https://image.tmdb.org/t/p/w185${img}`}
+            alt="actor_pic"
+            className="object-cover w-full"
+          />
         </div>
         <div className="p-3">
           <h3 className="text-center font-bold">{name}</h3>

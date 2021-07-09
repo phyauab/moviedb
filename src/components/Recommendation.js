@@ -10,7 +10,6 @@ export const Recommendation = () => {
     <section className="w-full content-center">
       {movieCategories.categories.map((item, index) => {
         const { category, movies } = item;
-        //console.log("movies: " + movies);
         return (
           <HorizontalScroller key={index} category={category} movies={movies} />
         );
