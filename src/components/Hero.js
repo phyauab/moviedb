@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export const Hero = ({ heroImg, search }) => {
+export const Hero = ({ heroImg }) => {
   const [keyword, setKeyword] = useState("");
 
   const history = useHistory();

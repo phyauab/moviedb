@@ -129,6 +129,11 @@ const initialSinglePerson = {
   movies: null,
 };
 
+const initialSearchResults = {
+  status: "LOADING",
+  movies: [],
+};
+
 export const MovieProvider = ({ children }) => {
   // const [state, dispatch] = useReducer(reducer, initialState);
   const [movieCategories, setMovieCategories] = useState(
@@ -141,6 +146,7 @@ export const MovieProvider = ({ children }) => {
   const [certifications, setCertifications] = useState(initialCertifications);
   const [movieList, setMovieList] = useState(initialMovieList);
   const [singlePerson, setSinglePerson] = useState(initialSinglePerson);
+  const [searchResults, setSearchResults] = useState(initialSearchResults);
 
   // const fetchAPI = async (action, url) => {
   //   console.log("WARNING: FETCHING");
@@ -220,16 +226,23 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  // search of homeHero
+  // search bar
   const search = async (keyword) => {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;
     try {
+      setSearchResults({ ...searchResults, status: "LOADING" });
       const response = await axios(url);
-      console.log(response);
+      console.log(response.data.results);
+      console.log("merging");
+      setSearchResults({ movies: response.data.results, status: "LOADED" });
+      console.log("merged: " + searchResults.movies);
     } catch (error) {
       console.log(error);
+      setSearchResults({ ...searchResults, status: "ERROR" });
     }
+
+    // setSearchResults({ ...searchResults, status: "LOADED" });
   };
 
   const fetchMovieList = async () => {
@@ -355,6 +368,7 @@ export const MovieProvider = ({ children }) => {
         genres,
         certifications,
         movieList,
+        searchResults,
         fetchHome,
         fetchFilter,
         fetchPeople,
