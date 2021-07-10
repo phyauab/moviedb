@@ -13,15 +13,18 @@ export const Cast = ({ cast }) => {
     const { id, name, character, profile_path } = cast[i];
     const element = (
       <Link to={`/people/${id}`}>
-        <div key={id} className="flex shadow-md">
+        <div
+          key={id}
+          className="flex shadow-lg rounded-lg hover:bg-green-100 transition ease-in-out duration-500"
+        >
           <div className="w-28 h-28 rounded-lg overflow-hidden">
             <img
               src={`https://image.tmdb.org/t/p/w185${profile_path}`}
               alt="Cast"
             />
           </div>
-          <div className="px-5">
-            <h1 className="font-bold">{name}</h1>
+          <div className="px-5 py-2">
+            <h1 className="font-bold ">{name}</h1>
             <p className="text-gray-500">as {character}</p>
           </div>
         </div>

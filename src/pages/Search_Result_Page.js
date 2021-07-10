@@ -68,12 +68,15 @@ const List = ({ results }) => {
           <Link to={`/movies/${id}`}>
             <div
               key={id}
-              className="flex flex-col border lg:flex-row lg:h-48 justify-between"
+              className="flex flex-col border lg:flex-row lg:h-48 justify-between hover:bg-green-100 transition ease-in-out duration-500"
             >
               <div className="flex flex-col lg:flex-row">
                 {/* Image */}
                 <div className="flex-shrink-0 overflow-hidden lg:w-32">
-                  <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    alt="poster"
+                  />
                 </div>
                 {/* Info */}
                 <div className="p-5 overflow-hidden">
