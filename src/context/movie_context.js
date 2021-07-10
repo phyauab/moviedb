@@ -121,6 +121,8 @@ const initialCertifications = {
 const initialMovieList = {
   status: "LOADING",
   movieList: [],
+  page: 0,
+  totalPage: 0,
 };
 
 const initialSinglePerson = {
@@ -215,10 +217,13 @@ export const MovieProvider = ({ children }) => {
     setMovieList({ ...movieList, status: "LOADING" });
     try {
       const response = await axios.get(url);
+      console.log(response);
       setMovieList({
         ...movieList,
         movieList: response.data.results,
         status: "LOADED",
+        page: response.data.page,
+        totalPage: response.data.total_pages,
       });
     } catch (error) {
       console.log(error);

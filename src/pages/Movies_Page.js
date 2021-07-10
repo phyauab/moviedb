@@ -5,6 +5,7 @@ import MovieList from "../components/MovieList";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import Pager from "../components/Pager";
 
 // TODO:
 // 1. FLITER COMPONENT
@@ -52,6 +53,7 @@ export const Movies_Page = () => {
       ) : (
         <MovieList movieList={movieList} />
       )}
+      <Pager />
     </section>
   );
 };
