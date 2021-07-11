@@ -255,7 +255,7 @@ export const MovieProvider = ({ children }) => {
     try {
       setSearchResults({ ...searchResults, status: "LOADING" });
       const response = await axios(url);
-      console.log(response);
+      //console.log(response);
       setSearchResults({
         movies: response.data.results,
         status: "LOADED",

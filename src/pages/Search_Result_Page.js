@@ -13,20 +13,24 @@ const Search_Result_Page = () => {
   const location = useLocation();
 
   const handleSubmit = (e) => {
-    setPage(1);
+    console.log("handle");
     e.preventDefault();
-    search(keyword, page);
+    setPage(1);
   };
 
   useEffect(() => {
+    console.log("initial effect");
+    console.log(location.state.keyword);
     if (location.state) {
       setKeyword(location.state.keyword);
-      search(location.state.keyword);
-      location.state = null;
-    } else {
-      search(keyword, page);
+      search(location.state.keyword, page);
     }
     // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    console.log("search");
+    if (keyword !== "") search(keyword, page);
   }, [page]);
 
   return (

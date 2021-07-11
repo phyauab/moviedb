@@ -64,6 +64,9 @@ const Pager = ({ page, totalPage, setPage }) => {
           <li
             key={totalPage}
             className={page === totalPage ? "page-item-selected" : "page-item"}
+            onClick={() => {
+              setPage(totalPage);
+            }}
           >
             {totalPage}
           </li>
