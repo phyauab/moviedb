@@ -233,7 +233,7 @@ export const MovieProvider = ({ children }) => {
     setMovieList({ ...movieList, status: "LOADING" });
     try {
       const response = await axios.get(url);
-      console.log(response);
+      //console.log(response);
       setMovieList({
         ...movieList,
         movieList: response.data.results,

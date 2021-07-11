@@ -1,7 +1,7 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 
 // Filter only makes API fetch when user is in the Movie Page
-export const Filter = ({ genres, certifications, filterMovies }) => {
+export const Filter = ({ genres, certifications, filterMovies, page }) => {
   //const [keyword, setKeyword] = useState("");
   const [with_genres, setWith_genres] = useState([]);
   // need country: US
@@ -23,11 +23,16 @@ export const Filter = ({ genres, certifications, filterMovies }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(fromReleaseDate);
+    console.log("handlesubmit");
+    createAndFetch();
+  };
+
+  const createAndFetch = () => {
+    console.log("create and fetch");
 
     // &release_date.gte=2021-01-01&release_date.lte=2021-12-13
     var url =
-      "https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate";
+      "https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate";
     // if (fromReleaseDate !== "" && toReleaseDate !== "") {
     //   url += "";
     // }
@@ -59,6 +64,8 @@ export const Filter = ({ genres, certifications, filterMovies }) => {
     //   url += `&with_keywords=${keyword}`;
     // }
 
+    // page
+    url += `&page=${page}`;
     filterMovies(url);
   };
 
@@ -124,6 +131,10 @@ export const Filter = ({ genres, certifications, filterMovies }) => {
     // keyword
     //setKeyword("");
   };
+
+  useEffect(() => {
+    createAndFetch();
+  }, [page]);
 
   const td = "table-cell pb-2";
 

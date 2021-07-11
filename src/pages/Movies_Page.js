@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { useMovieContext } from "../context/movie_context";
 import Filter from "../components/Filter";
 import MovieList from "../components/MovieList";
@@ -22,13 +22,14 @@ export const Movies_Page = () => {
     fetchMovieList,
     filterMovies,
   } = useMovieContext();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (genres.genres.length === 0) {
       console.log("fetch filter");
       fetchFilter();
     }
-    fetchMovieList();
+    //fetchMovieList();
     // eslint-disable-next-line
   }, []);
 
@@ -44,6 +45,7 @@ export const Movies_Page = () => {
           genres={genres.genres}
           certifications={certifications.certifications}
           filterMovies={filterMovies}
+          page={page}
         />
       )}
       {movieList.status === "LOADING" ? (
@@ -54,7 +56,7 @@ export const Movies_Page = () => {
         <MovieList movieList={movieList} />
       )}
 
-      <Pager page={movieList.page} totalPage={movieList.totalPage} />
+      <Pager page={page} setPage={setPage} totalPage={movieList.totalPage} />
     </section>
   );
 };
