@@ -79,21 +79,29 @@ const initialMovieCategories = {
       category: "Trending",
       keyword: "/trending/movie/day",
       movies: null,
+      page: 1,
+      totalPage: 1,
     },
     {
       category: "Popular",
       keyword: "/movie/popular",
       movies: null,
+      page: 1,
+      totalPage: 1,
     },
     {
       category: "Top Rated",
       keyword: "/movie/top_rated",
       movies: null,
+      page: 1,
+      totalPage: 1,
     },
     {
       category: "Upcoming",
       keyword: "/movie/upcoming",
       movies: null,
+      page: 1,
+      totalPage: 1,
     },
   ],
 };
@@ -106,6 +114,8 @@ const initialProviders = {
 const initialPeople = {
   status: "LOADING",
   people: [],
+  page: 1,
+  totalPage: 1,
 };
 
 const initialGenres = {
@@ -121,8 +131,8 @@ const initialCertifications = {
 const initialMovieList = {
   status: "LOADING",
   movieList: [],
-  page: 0,
-  totalPage: 0,
+  page: 1,
+  totalPage: 1,
 };
 
 const initialSinglePerson = {
@@ -134,6 +144,8 @@ const initialSinglePerson = {
 const initialSearchResults = {
   status: "LOADING",
   movies: [],
+  page: 1,
+  totalPage: 1,
 };
 
 export const MovieProvider = ({ children }) => {
@@ -183,6 +195,12 @@ export const MovieProvider = ({ children }) => {
           const response = await axios.get(url);
           // console.log(response);
           tempCategories[i].movies = response.data.results;
+          tempCategories[i].page = response.data.page;
+          tempCategories[i].totalPage = response.data.total_pages;
+          setMovieCategories({
+            categories: tempCategories,
+            status: "LOADED",
+          });
         } catch (error) {
           setMovieCategories({ ...movieCategories, status: "ERROR" });
           console.log(error);
@@ -190,8 +208,6 @@ export const MovieProvider = ({ children }) => {
         }
       })
     );
-
-    setMovieCategories({ categories: tempCategories, status: "LOADED" });
   };
 
   // search
@@ -238,8 +254,13 @@ export const MovieProvider = ({ children }) => {
     try {
       setSearchResults({ ...searchResults, status: "LOADING" });
       const response = await axios(url);
-      console.log(response.data.results);
-      setSearchResults({ movies: response.data.results, status: "LOADED" });
+      // console.log(response.data.results);
+      setSearchResults({
+        movies: response.data.results,
+        status: "LOADED",
+        page: response.data.page,
+        totalPage: response.data.total_pages,
+      });
     } catch (error) {
       console.log(error);
       setSearchResults({ ...searchResults, status: "ERROR" });
@@ -248,6 +269,7 @@ export const MovieProvider = ({ children }) => {
     // setSearchResults({ ...searchResults, status: "LOADED" });
   };
 
+  // for once in movies page
   const fetchMovieList = async () => {
     if (movieList.movieList.length === 0) {
       setMovieList({ ...movieList, status: "LOADING" });
@@ -256,7 +278,12 @@ export const MovieProvider = ({ children }) => {
         await fetchHome();
       }
       const list = movieCategories.categories[0].movies;
-      setMovieList({ movieList: list, status: "LOADED" });
+      setMovieList({
+        movieList: list,
+        status: "LOADED",
+        page: movieCategories.categories[0].page,
+        totalPage: movieCategories.categories[0].totalPage,
+      });
     }
   };
 
@@ -279,7 +306,12 @@ export const MovieProvider = ({ children }) => {
     setPeople({ ...people, status: "LOADING" });
     try {
       const response = await axios.get(url);
-      setPeople({ status: "LOADED", people: response.data.results });
+      setPeople({
+        status: "LOADED",
+        people: response.data.results,
+        page: response.data.page,
+        totalPage: response.data.total_pages,
+      });
     } catch (error) {
       console.log(error);
       setPeople({ ...people, status: "ERROR" });

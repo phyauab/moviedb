@@ -53,7 +53,8 @@ export const Movies_Page = () => {
       ) : (
         <MovieList movieList={movieList} />
       )}
-      <Pager />
+
+      <Pager page={movieList.page} totalPage={movieList.totalPage} />
     </section>
   );
 };
