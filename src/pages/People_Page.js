@@ -1,6 +1,7 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { useMovieContext } from "../context/movie_context";
 import CardPerson from "../components/CardPerson";
+import Pager from "../components/Pager";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -8,14 +9,12 @@ import Error from "../components/Error";
 export const People_Page = () => {
   const { fetchPeople, people } = useMovieContext();
   const { status } = people;
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    if (people.people.length === 0) {
-      console.log("fetch people");
-      fetchPeople();
-    }
+    fetchPeople(page);
     // eslint-disable-next-line
-  }, []);
+  }, [page]);
 
   if (status === "LOADING") {
     return <Loading />;
@@ -41,6 +40,11 @@ export const People_Page = () => {
           );
         })}
       </div>
+      <Pager
+        page={people.page}
+        totalPage={people.totalPage}
+        setPage={setPage}
+      />
     </section>
   );
 };

@@ -14,14 +14,8 @@ import Pager from "../components/Pager";
 // REFERENCE: https://developers.themoviedb.org/3/discover/movie-discover
 
 export const Movies_Page = () => {
-  const {
-    genres,
-    certifications,
-    fetchFilter,
-    movieList,
-    fetchMovieList,
-    filterMovies,
-  } = useMovieContext();
+  const { genres, certifications, fetchFilter, movieList, filterMovies } =
+    useMovieContext();
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -29,7 +23,6 @@ export const Movies_Page = () => {
       console.log("fetch filter");
       fetchFilter();
     }
-    //fetchMovieList();
     // eslint-disable-next-line
   }, []);
 

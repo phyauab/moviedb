@@ -4,24 +4,30 @@ import { useLocation, Link } from "react-router-dom";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import Pager from "../components/Pager";
 
 const Search_Result_Page = () => {
   const [keyword, setKeyword] = useState("");
   const { searchResults, search } = useMovieContext();
+  const [page, setPage] = useState(1);
   const location = useLocation();
 
   const handleSubmit = (e) => {
+    setPage(1);
     e.preventDefault();
-    search(keyword);
+    search(keyword, page);
   };
 
   useEffect(() => {
     if (location.state) {
       setKeyword(location.state.keyword);
       search(location.state.keyword);
+      location.state = null;
+    } else {
+      search(keyword, page);
     }
     // eslint-disable-next-line
-  }, []);
+  }, [page]);
 
   return (
     <section className="content-center">
@@ -52,7 +58,14 @@ const Search_Result_Page = () => {
       ) : searchResults.status === "ERROR" ? (
         <Error />
       ) : (
-        <List results={searchResults.movies} />
+        <div>
+          <List results={searchResults.movies} />
+          <Pager
+            page={searchResults.page}
+            totalPage={searchResults.totalPage}
+            setPage={setPage}
+          />
+        </div>
       )}
     </section>
   );
@@ -74,7 +87,7 @@ const List = ({ results }) => {
                 {/* Image */}
                 <div className="flex-shrink-0 overflow-hidden lg:w-32">
                   <img
-                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w342${poster_path}`}
                     alt="poster"
                   />
                 </div>

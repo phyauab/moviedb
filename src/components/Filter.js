@@ -134,6 +134,7 @@ export const Filter = ({ genres, certifications, filterMovies, page }) => {
 
   useEffect(() => {
     createAndFetch();
+    // eslint-disable-next-line
   }, [page]);
 
   const td = "table-cell pb-2";

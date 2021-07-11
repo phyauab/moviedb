@@ -199,7 +199,7 @@ export const MovieProvider = ({ children }) => {
           tempCategories[i].totalPage = response.data.total_pages;
           setMovieCategories({
             categories: tempCategories,
-            status: "LOADED",
+            status: "LOADING",
           });
         } catch (error) {
           setMovieCategories({ ...movieCategories, status: "ERROR" });
@@ -208,6 +208,7 @@ export const MovieProvider = ({ children }) => {
         }
       })
     );
+    setMovieCategories({ ...movieCategories, status: "LOADED" });
   };
 
   // search
@@ -248,13 +249,13 @@ export const MovieProvider = ({ children }) => {
   };
 
   // search bar
-  const search = async (keyword) => {
+  const search = async (keyword, page) => {
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
-    const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=1&include_adult=false`;
+    const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=${page}&include_adult=false`;
     try {
       setSearchResults({ ...searchResults, status: "LOADING" });
       const response = await axios(url);
-      // console.log(response.data.results);
+      console.log(response);
       setSearchResults({
         movies: response.data.results,
         status: "LOADED",
@@ -301,11 +302,12 @@ export const MovieProvider = ({ children }) => {
   };
 
   // people
-  const fetchPeople = async () => {
-    const url = `${API_URL}/person/popular${API_KEY}`;
+  const fetchPeople = async (page) => {
+    const url = `${API_URL}/person/popular${API_KEY}&page=${page}`;
     setPeople({ ...people, status: "LOADING" });
     try {
       const response = await axios.get(url);
+      console.log(response);
       setPeople({
         status: "LOADED",
         people: response.data.results,

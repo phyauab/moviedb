@@ -5,14 +5,16 @@ const Pager = ({ page, totalPage, setPage }) => {
     <nav className="mb-10 flex justify-center items-center">
       <ul className="flex w-min divide-solid divide-x-2 divide-green-400 border-2 border-green-400 rounded-md">
         {/* previous page */}
-        <li
-          className="page-item"
-          onClick={() => {
-            if (page !== 1) setPage(page - 1);
-          }}
-        >
-          <span>&lt;</span>
-        </li>
+        {page === 1 || (
+          <li
+            className="page-item"
+            onClick={() => {
+              if (page !== 1) setPage(page - 1);
+            }}
+          >
+            <span>&lt;</span>
+          </li>
+        )}
 
         {/* pages */}
         {/* first page */}
@@ -44,33 +46,40 @@ const Pager = ({ page, totalPage, setPage }) => {
         >
           <span>{page === 1 ? page + 1 : page}</span>
         </li>
-        <li
-          className="page-item"
-          onClick={() => {
-            page === 1 ? setPage(page + 2) : setPage(page + 1);
-          }}
-        >
-          <span>{page === 1 ? page + 2 : page + 1}</span>
-        </li>
+        {page === totalPage || (page === 1 && page + 1 === totalPage) || (
+          <li
+            className="page-item"
+            onClick={() => {
+              page === 1 ? setPage(page + 2) : setPage(page + 1);
+            }}
+          >
+            <span>{page === 1 ? page + 2 : page + 1}</span>
+          </li>
+        )}
 
         {/* last page */}
-        {page === totalPage ? (
+        {page + 2 >= totalPage ? (
           <></>
         ) : (
-          <li key={totalPage} className="page-item">
+          <li
+            key={totalPage}
+            className={page === totalPage ? "page-item-selected" : "page-item"}
+          >
             {totalPage}
           </li>
         )}
 
         {/* next page */}
-        <li
-          className="page-item"
-          onClick={() => {
-            if (page !== totalPage) setPage(page + 1);
-          }}
-        >
-          <span>&gt;</span>
-        </li>
+        {page === totalPage || (
+          <li
+            className="page-item"
+            onClick={() => {
+              if (page !== totalPage) setPage(page + 1);
+            }}
+          >
+            <span>&gt;</span>
+          </li>
+        )}
       </ul>
     </nav>
   );
