@@ -9,11 +9,11 @@ export const CardMovie = ({
   poster_path,
 }) => {
   return (
-    <div className="w-48 mr-10 inline-block transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+    <div className="w-48 mr-10 inline-block">
       {/* Movie Poster + Rating */}
 
       <Link to={`/movies/${id}`}>
-        <div className="rounded-lg cursor-pointer shadow-lg overflow-hidden">
+        <div className="rounded-lg cursor-pointer shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out hover:-translate-y-1 transform">
           <img
             src={`https://image.tmdb.org/t/p/w342${poster_path}`}
             alt="poster"

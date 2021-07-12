@@ -15,7 +15,7 @@ export const Cast = ({ cast }) => {
       <Link to={`/people/${id}`}>
         <div
           key={id}
-          className="flex shadow-lg rounded-lg hover:bg-green-100 transition ease-in-out duration-500"
+          className="flex bg-gray-50 rounded-lg hover:shadow-2xl transition duration-300 ease-in-out hover:-translate-y-1 transform"
         >
           <div className="w-28 h-28 rounded-lg overflow-hidden">
             <img

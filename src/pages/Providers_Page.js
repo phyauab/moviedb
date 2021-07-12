@@ -35,7 +35,7 @@ export const Providers_Page = () => {
   return (
     <section className="content-center mt-10">
       <Header title="Providers" />
-      <div className=" grid justify-center justify-items-center grid-cols-4 gap-y-5 my-10 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
+      <div className=" grid justify-center justify-items-center grid-cols-4 gap-y-5 my-10 sm:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 ">
         {providersList.map((provider) => {
           const { provider_id, provider_name, logo_path } = provider;
           return (
