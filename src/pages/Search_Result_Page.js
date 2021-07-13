@@ -31,6 +31,8 @@ const Search_Result_Page = () => {
   useEffect(() => {
     console.log("search");
     if (keyword !== "") search(keyword, page);
+
+    // eslint-disable-next-line
   }, [page]);
 
   return (

@@ -28,7 +28,7 @@ export const Filter = ({ genres, certifications, filterMovies, page }) => {
   };
 
   const createAndFetch = () => {
-    console.log("create and fetch");
+    // console.log("create and fetch");
 
     // &release_date.gte=2021-01-01&release_date.lte=2021-12-13
     var url =

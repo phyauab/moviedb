@@ -1,6 +1,48 @@
-import React from "react";
+import {React, useEffect, useState } from "react";
 
 const Pager = ({ page, totalPage, setPage }) => {
+  const [pages, setPages]= useState([]);
+
+  useEffect(()=>{
+    console.log("page useEffect")
+    var tempPages;
+    var start;
+    var rowLength;
+
+    // case 1: front
+    if(page === 1 || page === 2){
+      start = 2;
+      rowLength = 2;
+    } else if (page === totalPage-1 || page === totalPage) {
+      start = totalPage - 2;
+      rowLength = 2;
+    } else {
+      start = page-1;
+      rowLength = 3;
+    }
+
+    tempPages = buildPages(start, rowLength);
+    setPages(tempPages);
+
+  },[page])
+
+  const buildPages = (start, rowLength) => {
+    const tempPages = [];
+    for(let i = start; i < start + rowLength; ++i){
+      tempPages.push(
+        <li
+        className={page === i ? "page-item-selected" : "page-item"}
+        onClick={() => {
+          setPage(i);
+        }}
+      >
+          <span>{i}</span>
+        </li>
+      )
+    }
+    return tempPages;
+  }
+
   return (
     <nav className="mb-10 flex justify-center items-center">
       <ul className="flex w-min divide-solid divide-x-2 divide-green-400 border-2 border-green-400 rounded-md">
@@ -28,37 +70,10 @@ const Pager = ({ page, totalPage, setPage }) => {
         </li>
 
         {/* pages in the middle, 3 of them */}
-        {page === 1 || page === 2 || (
-          <li
-            className="page-item"
-            onClick={() => {
-              setPage(page - 1);
-            }}
-          >
-            <span>{page - 1}</span>
-          </li>
-        )}
-        <li
-          className={page === 1 ? "page-item" : "page-item-selected"}
-          onClick={() => {
-            page === 1 ? setPage(page + 1) : setPage(page);
-          }}
-        >
-          <span>{page === 1 ? page + 1 : page}</span>
-        </li>
-        {page === totalPage || (page === 1 && page + 1 === totalPage) || (
-          <li
-            className="page-item"
-            onClick={() => {
-              page === 1 ? setPage(page + 2) : setPage(page + 1);
-            }}
-          >
-            <span>{page === 1 ? page + 2 : page + 1}</span>
-          </li>
-        )}
+        {pages}
 
         {/* last page */}
-        {page + 2 >= totalPage ? (
+        {totalPage === 1 ? (
           <></>
         ) : (
           <li
