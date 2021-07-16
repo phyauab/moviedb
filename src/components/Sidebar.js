@@ -4,7 +4,7 @@ import { links } from "../constants/utils";
 const sideBarClose =
   "transition duration-500 ease-in-out transform translate-x-full";
 const sideBar =
-  "flex flex-col h-screen fixed top-0 right-0 z-50 bg-gray-100 w-1/2 p-4 lg:w-96 ";
+  "flex flex-col h-screen fixed top-0 right-0 z-50 bg-gray-100 w-1/2 p-4 md:w-96";
 const sideBarOpen = "w-0 transition duration-500";
 const header = "p-4 border-b-2 border-gray-300 flex";
 const h2 = "flex-1 text-green-300 text-4xl text-start font-semibold";
