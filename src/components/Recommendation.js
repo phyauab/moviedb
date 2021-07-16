@@ -1,6 +1,7 @@
 import React from "react";
 import { useMovieContext } from "../context/movie_context";
 import HorizontalScroller from "./HorizontalScroller";
+import { TransitionGroup } from "react-transition-group";
 
 export const Recommendation = () => {
   const { movieCategories } = useMovieContext();
@@ -11,7 +12,13 @@ export const Recommendation = () => {
       {movieCategories.categories.map((item, index) => {
         const { category, movies } = item;
         return (
-          <HorizontalScroller key={index} category={category} movies={movies} />
+          <TransitionGroup>
+            <HorizontalScroller
+              key={index}
+              category={category}
+              movies={movies}
+            />
+          </TransitionGroup>
         );
       })}
     </section>

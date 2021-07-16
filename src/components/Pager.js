@@ -1,47 +1,48 @@
-import {React, useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 const Pager = ({ page, totalPage, setPage }) => {
-  const [pages, setPages]= useState([]);
+  const [pages, setPages] = useState([]);
 
-  useEffect(()=>{
-    console.log("page useEffect")
+  useEffect(() => {
+    console.log("page useEffect");
     var tempPages;
     var start;
     var rowLength;
 
     // case 1: front
-    if(page === 1 || page === 2){
+    if (page === 1 || page === 2) {
       start = 2;
       rowLength = 2;
-    } else if (page === totalPage-1 || page === totalPage) {
+    } else if (page === totalPage - 1 || page === totalPage) {
       start = totalPage - 2;
       rowLength = 2;
     } else {
-      start = page-1;
+      start = page - 1;
       rowLength = 3;
     }
 
     tempPages = buildPages(start, rowLength);
     setPages(tempPages);
 
-  },[page])
+    // eslint-disable-next-line
+  }, [page]);
 
   const buildPages = (start, rowLength) => {
     const tempPages = [];
-    for(let i = start; i < start + rowLength; ++i){
+    for (let i = start; i < start + rowLength; ++i) {
       tempPages.push(
         <li
-        className={page === i ? "page-item-selected" : "page-item"}
-        onClick={() => {
-          setPage(i);
-        }}
-      >
+          className={page === i ? "page-item-selected" : "page-item"}
+          onClick={() => {
+            setPage(i);
+          }}
+        >
           <span>{i}</span>
         </li>
-      )
+      );
     }
     return tempPages;
-  }
+  };
 
   return (
     <nav className="mb-10 flex justify-center items-center">

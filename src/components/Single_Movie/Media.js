@@ -44,7 +44,7 @@ export const Media = ({ videos, images }) => {
               <iframe
                 title={name}
                 key={id}
-                className="w-full"
+                className="h-full"
                 src={`https://www.youtube.com/embed/${key}`}
               ></iframe>
             );
