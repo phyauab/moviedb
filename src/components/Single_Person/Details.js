@@ -1,4 +1,5 @@
 import React from "react";
+import user from "../../assets/user.svg"
 
 // details of person
 const Details = ({ details }) => {
@@ -19,6 +20,7 @@ const Details = ({ details }) => {
         <img
           className="w-60"
           src={`https://image.tmdb.org/t/p/original${profile_path}`}
+          onError={(e)=>e.currentTarget.src = user}
           alt="profile_path"
         />
       </div>

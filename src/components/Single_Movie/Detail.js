@@ -4,9 +4,9 @@ import Header from "../Header";
 export const Detail = ({ details, crew }) => {
   const [detail, setDetail] = useState({
     title: "unknown",
-    director: "unknown",
-    writer: "unknown",
-    story: "unknown",
+    directors: "unknown",
+    writers: "unknown",
+    stories: "unknown",
     language: "unknown",
     budget: "unknown",
     revenue: "unknown",
@@ -14,30 +14,30 @@ export const Detail = ({ details, crew }) => {
 
   useEffect(() => {
     const { title, original_language, budget, revenue } = details;
-    var director = "unknown";
-    var writer = "unknown";
-    var story = "unknown";
-    try {
-      director = crew.find((person) => person.job === "Director").name;
-    } catch (error) {
-      console.log(error);
+    const directors = [];
+    const writers = [];
+    const stories = [];
+    for(let i = 0; i < crew.length; ++i) {
+      switch(crew[i].job) {
+        case "Director":
+          directors.push(crew[i].name);
+          break;
+        case "Writer":
+          writers.push(crew[i].name);
+          break;
+        case "Story":
+          stories.push(crew[i].name);
+          break;
+        default:
+      }
     }
-    try {
-      writer = crew.find((person) => person.job === "Writer").name;
-    } catch (error) {
-      console.log(error);
-    }
-    try {
-      story = crew.find((person) => person.job === "Story").name;
-    } catch (error) {
-      console.log(error);
-    }
+
     setDetail({
       ...detail,
       title: title,
-      director: director,
-      writer: writer,
-      story: story,
+      directors: directors.length > 0 ? directors : "unknown",
+      writers: writers.length > 0 ? writers : "unknown",
+      stories: stories.length > 0 ? stories : "unknown",
       language: original_language,
       budget: budget,
       revenue: revenue,

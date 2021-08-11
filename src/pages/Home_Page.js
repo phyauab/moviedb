@@ -11,7 +11,7 @@ export const Home_Page = () => {
   useEffect(() => {
     // this is to prevent fetching data every time visit the home page
     if (movieCategories.categories[0].movies === null) {
-      console.log("FETCH HOME");
+      //console.log("FETCH HOME");
       fetchHome();
     }
     // eslint-disable-next-line
@@ -19,12 +19,12 @@ export const Home_Page = () => {
 
   
   if (movieCategories.status === "LOADING") {
-    console.log("LOADING")
+    //console.log("LOADING")
     return <Loading />;
   } else if (movieCategories.status === "ERROR") {
     return <Error />;
   }
-  console.log("feteched")
+
   return (
     <main>
       <Hero heroImg={movieCategories.categories[0].movies[0].backdrop_path} />

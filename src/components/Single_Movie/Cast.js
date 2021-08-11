@@ -1,11 +1,16 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header";
+import user from "../../assets/user.svg";
 
 export const Cast = ({ cast }) => {
   const castArr = [];
   const allCastArr = [];
   const [showAll, setShowAll] = useState(false);
+
+  const addDefaultImg = (ev) =>{
+    ev.target.src = {user}
+  }
 
   // show only 10 initially
   const length = cast.length;
@@ -19,7 +24,8 @@ export const Cast = ({ cast }) => {
           <div className="w-28 h-28 rounded-lg overflow-hidden">
             <img
               src={`https://image.tmdb.org/t/p/w185${profile_path}`}
-              alt="Cast"
+              onError={(e) => { e.currentTarget.src = user; }}
+              alt="cast"
             />
           </div>
           <div className="px-5 py-2">
@@ -32,6 +38,8 @@ export const Cast = ({ cast }) => {
     if (i < 10) castArr.push(element);
     else allCastArr.push(element);
   }
+
+
 
   return (
     <div className="mb-10">
