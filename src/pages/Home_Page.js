@@ -17,12 +17,14 @@ export const Home_Page = () => {
     // eslint-disable-next-line
   }, []);
 
+  
   if (movieCategories.status === "LOADING") {
+    console.log("LOADING")
     return <Loading />;
   } else if (movieCategories.status === "ERROR") {
     return <Error />;
   }
-
+  console.log("feteched")
   return (
     <main>
       <Hero heroImg={movieCategories.categories[0].movies[0].backdrop_path} />

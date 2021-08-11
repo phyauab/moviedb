@@ -32,6 +32,7 @@ const Pager = ({ page, totalPage, setPage }) => {
     for (let i = start; i < start + rowLength; ++i) {
       tempPages.push(
         <li
+        key={i}
           className={page === i ? "page-item-selected" : "page-item"}
           onClick={() => {
             setPage(i);

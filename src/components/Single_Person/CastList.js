@@ -27,7 +27,7 @@ const CastList = ({ cast }) => {
                     <p className="hover:text-green-900">{title || "-"}</p>
                   </Link>
                 </td>
-                <td classNam="py-2">{character || "-"}</td>
+                <td className="py-2">{character || "-"}</td>
               </tr>
             );
           })}

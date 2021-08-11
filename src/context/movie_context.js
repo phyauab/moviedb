@@ -12,58 +12,12 @@ import axios from "axios";
 //   SET_ISLOADING_FALSE,
 // } from "../constants/action";
 
-const MovieContext = React.createContext();
-const API_URL = "https://api.themoviedb.org/3";
-const API_KEY = "?api_key=d60f4e8797f13dd4c61d8414708bb669";
-const API_LANGUAGE = "&language=en-US";
-const API_PAGE = "&page";
-
 // rule1: small functions
 // rule2: context fetches
 // rule3: pages feed data to components
 // rule4: unless a page is ready, don't show
 
-// const initialState = {
-//   movieCategories: [
-//     {
-//       category: "Trending",
-//       keyword: "/trending/movie/day",
-//       action: FETCH_TRENDING_MOVIE,
-//       movies: null,
-//     },
-//     {
-//       category: "Popular",
-//       keyword: "/movie/popular",
-//       action: FETCH_POPULAR_MOVIE,
-//       movies: null,
-//     },
-//     {
-//       category: "Top Rated",
-//       keyword: "/movie/top_rated",
-//       action: FETCH_TOP_RATED_MOVIE,
-//       movies: null,
-//     },
-//     {
-//       category: "Upcoming",
-//       keyword: "/movie/upcoming",
-//       action: FETCH_UPCOMING_MOVIE,
-//       movies: null,
-//     },
-//   ],
-//   genres: genre_data.genres,
-//   certifications: certifications_data.certifications.US,
-//   displayMovies: popular_movie_data.results,
-//   people: [],
-//   singleMovie: {
-//     details: null,
-//     credits: null,
-//     videos: null,
-//     images: null,
-//   },
-//   isLoading: false,
-//   watchProviders: null,
-// };
-
+const MovieContext = React.createContext();
 const initialSingleMovie = {
   status: "LOADING",
   details: null,
@@ -161,53 +115,32 @@ export const MovieProvider = ({ children }) => {
   const [movieList, setMovieList] = useState(initialMovieList);
   const [singlePerson, setSinglePerson] = useState(initialSinglePerson);
   const [searchResults, setSearchResults] = useState(initialSearchResults);
+  const BASE_URL = "https://api.themoviedb.org/3";
+  const API_KEY = "d60f4e8797f13dd4c61d8414708bb669";
+  const API_LANGUAGE = "en-US";
+  const api = axios.create({baseURL : BASE_URL, params: { api_key:API_KEY, language: API_LANGUAGE, }});
 
-  // const fetchAPI = async (action, url) => {
-  //   console.log("WARNING: FETCHING");
-  //   try {
-  //     const response = await axios.get(url);
-  //     //console.log(response);
-  //     dispatch({ type: action, payload: response });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // genres + certifications
-  // const fetchFilter2 = async () => {
-  //   dispatch({ type: SET_ISLOADING_TRUE });
-  //   // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
-  //   const urlGenres = `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`;
-  //   // https://api.themoviedb.org/3/certification/movie/list?api_key=<<api_key>>
-  //   const urlCertifications = `${API_URL}/certification/movie/list?api_key=${API_KEY}`;
-  //   fetchAPI(FETCH_MOVIE_GENRE, urlGenres);
-  //   fetchAPI(FETCH_MOVIE_CERTIFICATIONS, urlCertifications);
-  //   dispatch({ type: SET_ISLOADING_FALSE });
-  // };
-
-  const fetchHome = async (url) => {
+  const fetchHome = async () => {
     setMovieCategories({ ...movieCategories, status: "LOADING" });
     const tempCategories = movieCategories.categories;
-    await Promise.all(
-      movieCategories.categories.map(async (movieCategory, i) => {
-        const url = `${API_URL}${movieCategory.keyword}${API_KEY}${API_LANGUAGE}${API_PAGE}=1`;
-        try {
-          const response = await axios.get(url);
-          // console.log(response);
-          tempCategories[i].movies = response.data.results;
-          tempCategories[i].page = response.data.page;
-          tempCategories[i].totalPage = response.data.total_pages;
-          setMovieCategories({
-            categories: tempCategories,
-            status: "LOADING",
-          });
-        } catch (error) {
-          setMovieCategories({ ...movieCategories, status: "ERROR" });
-          console.log(error);
-          return;
-        }
-      })
-    );
+
+    try {
+      for (let i = 0; i < movieCategories.categories.length; ++i) {
+        const response = await api.get(movieCategories.categories[i].keyword, {
+          params: {
+            page: movieCategories.categories[i].page
+          }
+        })
+        tempCategories[i].movies = response.data.results;
+        tempCategories[i].page = response.data.page;
+        tempCategories[i].totalPage = response.data.total_pages;
+      }
+
+    } catch (error) {
+      setMovieCategories({ ...movieCategories, status: "ERROR" });
+      return console.log(error);
+    }
+
     setMovieCategories({ ...movieCategories, status: "LOADED" });
   };
 
@@ -216,10 +149,9 @@ export const MovieProvider = ({ children }) => {
     setGenres({ ...genres, status: "LOADING" });
     setCertifications({ ...certifications, status: "LOADING" });
     try {
-      const urlGenres = `${API_URL}/genre/movie/list${API_KEY}${API_LANGUAGE}`;
-      const urlCertifications = `${API_URL}/certification/movie/list${API_KEY}`;
-      const responseGenres = await axios.get(urlGenres);
-      const responseCertifications = await axios.get(urlCertifications);
+      const responseGenres = await api.get('/genre/movie/list');
+      const responseCertifications = await api.get('/certification/movie/list')
+
       setGenres({ genres: responseGenres.data.genres, status: "LOADED" });
       setCertifications({
         certifications: responseCertifications.data.certifications.US,
@@ -230,11 +162,14 @@ export const MovieProvider = ({ children }) => {
     }
   };
   // search for user's input, for movieList
-  const filterMovies = async (url) => {
+  const filterMovies = async (url, params) => {
     setMovieList({ ...movieList, status: "LOADING" });
     try {
       const response = await axios.get(url);
+      const re2 = await api.get('/discover/movie', {params})
+      console.log(re2);
       //console.log(response);
+
       setMovieList({
         ...movieList,
         movieList: response.data.results,
@@ -250,12 +185,15 @@ export const MovieProvider = ({ children }) => {
 
   // search bar
   const search = async (keyword, page) => {
+    setSearchResults({ ...searchResults, status: "LOADING" });
     // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
-    const url = `${API_URL}/search/movie${API_KEY}${API_LANGUAGE}&query=${keyword}&page=${page}&include_adult=false`;
     try {
-      setSearchResults({ ...searchResults, status: "LOADING" });
-      const response = await axios(url);
-      //console.log(response);
+      const response = await api.get('/search/movie',{
+        params: {
+          query: keyword,
+          page
+        }
+      })
       setSearchResults({
         movies: response.data.results,
         status: "LOADED",
@@ -266,8 +204,6 @@ export const MovieProvider = ({ children }) => {
       console.log(error);
       setSearchResults({ ...searchResults, status: "ERROR" });
     }
-
-    // setSearchResults({ ...searchResults, status: "LOADED" });
   };
 
   // for once in movies page
@@ -290,10 +226,10 @@ export const MovieProvider = ({ children }) => {
 
   // watch providers
   const fetchProviders = async () => {
-    const url = `${API_URL}/watch/providers/movie${API_KEY}`;
+    
     setProviders({ ...providers, status: "LOADING" });
     try {
-      const response = await axios.get(url);
+      const response = await api.get('/watch/providers/movie');
       setProviders({ providers: response.data.results, status: "LOADED" });
     } catch (error) {
       console.log(error);
@@ -303,11 +239,10 @@ export const MovieProvider = ({ children }) => {
 
   // people
   const fetchPeople = async (page) => {
-    const url = `${API_URL}/person/popular${API_KEY}&page=${page}`;
     setPeople({ ...people, status: "LOADING" });
     try {
-      const response = await axios.get(url);
-      console.log(response);
+      const response = await api.get('/person/popular', {params: {page}})
+
       setPeople({
         status: "LOADED",
         people: response.data.results,
@@ -322,19 +257,13 @@ export const MovieProvider = ({ children }) => {
 
   // person
   const fetchSinglePerson = async (id) => {
-    // https://api.themoviedb.org/3/person/18918?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
-    const urlDetails = `${API_URL}/person/${id}${API_KEY}${API_LANGUAGE}`;
-    // https://api.themoviedb.org/3/person/18918/movie_credits?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US
-    const urlMovies = `${API_URL}/person/${id}/movie_credits${API_KEY}${API_LANGUAGE}`;
     setSinglePerson({ ...singlePerson, status: "LOADING" });
 
     try {
-      const responseDetails = await axios.get(urlDetails);
-      console.log(urlMovies);
-
+      const responseDetails = await api.get(`/person/${id}`);
       // movies
-      const responseMovies = await axios.get(urlMovies);
-      console.log(responseMovies);
+      const responseMovies = await api.get(`/person/${id}/movie_credits`);
+
       const tempMovies = responseMovies.data;
       tempMovies.cast.sort(function (a, b) {
         const y1 = new Date(a.release_date).getFullYear();
@@ -368,29 +297,35 @@ export const MovieProvider = ({ children }) => {
   // movie detail + credit + videos + images
   const fetchSingleMovie = async (id) => {
     setSingleMovie({ ...singleMovie, status: "LOADING" });
-    const urlDetails = `${API_URL}/movie/${id}${API_KEY}${API_LANGUAGE}`;
-    const urlCredits = `${API_URL}/movie/${id}/credits${API_KEY}${API_LANGUAGE}`;
-    const urlVideos = `${API_URL}/movie/${id}/videos${API_KEY}${API_LANGUAGE}`;
-    const urlImages = `${API_URL}/movie/${id}/images${API_KEY}`;
+    // const urlDetails = `${API_URL}/movie/${id}${API_KEY}${API_LANGUAGE}`;
+    // const urlCredits = `${API_URL}/movie/${id}/credits${API_KEY}${API_LANGUAGE}`;
+    // const urlVideos = `${API_URL}/movie/${id}/videos${API_KEY}${API_LANGUAGE}`;
+    // const urlImages = `${API_URL}/movie/${id}/images?api_key=${API_KEY}`;
     const tempSingleMovie = singleMovie;
 
     try {
-      const responseDetails = await axios.get(urlDetails);
+      const responseDetails = await api.get(`/movie/${id}`)
       tempSingleMovie.details = responseDetails.data;
-      console.log(responseDetails);
-      const responseCredits = await axios.get(urlCredits);
-      console.log(responseCredits);
+
+      const responseCredits = await api.get(`/movie/${id}/credits`)
       tempSingleMovie.credits = responseCredits.data;
-      const responseVideos = await axios.get(urlVideos);
-      console.log(responseVideos);
+
+      const responseVideos = await api.get(`/movie/${id}/videos`)
       tempSingleMovie.videos = responseVideos.data.results;
-      const responseImages = await axios.get(urlImages);
-      console.log(responseImages);
+
+      const responseImages = await api.get(`/movie/${id}/images`, {
+        params: {
+          language: null
+        }
+      })
+      // const responseImages = await axios.get(urlImages)
       tempSingleMovie.images = responseImages.data;
+      
       tempSingleMovie.status = "LOADED";
       setSingleMovie(tempSingleMovie);
     } catch (error) {
       console.log(error);
+      setSingleMovie({ ...singleMovie, status: "ERROR" });
     }
   };
 

@@ -84,9 +84,8 @@ const List = ({ results }) => {
         const { id, poster_path, overview, title, release_date, vote_average } =
           movie;
         return (
-          <Link to={`/movies/${id}`}>
+          <Link key={id} to={`/movies/${id}`}>
             <div
-              key={id}
               className="flex flex-col border lg:flex-row lg:h-48 justify-between hover:bg-green-100 transition ease-in-out duration-500"
             >
               <div className="flex flex-col lg:flex-row">

@@ -37,12 +37,34 @@ export const Filter = ({ genres, certifications, filterMovies, page }) => {
     //   url += "";
     // }
 
+    const params = {
+      release_date:{
+        gte: null,
+        lte: null
+      },
+      with_genres: null,
+      certification_country: 'US',
+      certification: null,
+      vote_average: {
+        gte: lowerBound,
+        lte: upperBound
+      },
+      page: page
+    };
+
     if (fromReleaseDate !== "") url += `&release_date.gte=${fromReleaseDate}`;
+    if (fromReleaseDate !== "") {
+      params.release_date.gte = fromReleaseDate;
+    }
 
     if (toReleaseDate !== "") url += `&release_date.lte=${toReleaseDate}`;
+    if (toReleaseDate !== "") {
+      params.release_date.let = toReleaseDate
+    }
 
     if (with_genres !== []) {
       url += `&with_genres=${with_genres}`;
+      params.with_genres = with_genres
     }
 
     if (certification !== []) {
@@ -51,11 +73,14 @@ export const Filter = ({ genres, certifications, filterMovies, page }) => {
         url += certification[i];
         if (i + 1 < certification.length) url += "|";
       }
+      params.certification = certification
     }
 
     if (lowerBound !== null && upperBound !== null) {
       url += `&vote_average.gte=${lowerBound}`;
       url += `&vote_average.lte=${upperBound}`;
+      params.vote_average.gte = lowerBound;
+      params.vote_average.lte = upperBound;
     }
 
     // keywords
@@ -66,7 +91,9 @@ export const Filter = ({ genres, certifications, filterMovies, page }) => {
 
     // page
     url += `&page=${page}`;
-    filterMovies(url);
+    console.log(url)
+    //https://api.themoviedb.org/3/discover/movie?api_key=d60f4e8797f13dd4c61d8414708bb669&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&release_date.gte=2021-08-06&release_date.lte=2021-09-02&with_genres=10402&certification_country=US&certification=G|R|NR&vote_average.gte=0&vote_average.lte=10&page=1
+    filterMovies(url, params);
   };
 
   const filter_genres = (e) => {

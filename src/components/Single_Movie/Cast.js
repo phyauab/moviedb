@@ -12,9 +12,8 @@ export const Cast = ({ cast }) => {
   for (let i = 0; i < length && cast[i] !== undefined; ++i) {
     const { id, name, character, profile_path } = cast[i];
     const element = (
-      <Link to={`/people/${id}`}>
+      <Link key={id} to={`/people/${id}`}>
         <div
-          key={id}
           className="flex bg-gray-50 rounded-lg hover:shadow-2xl transition duration-300 ease-in-out hover:-translate-y-1 transform"
         >
           <div className="w-28 h-28 rounded-lg overflow-hidden">
