@@ -166,8 +166,8 @@ export const MovieProvider = ({ children }) => {
     setMovieList({ ...movieList, status: "LOADING" });
     try {
       const response = await axios.get(url);
-      const re2 = await api.get('/discover/movie', {params})
-      console.log(re2);
+      // const re2 = await api.get('/discover/movie', {params})
+      // console.log(re2);
       //console.log(response);
 
       setMovieList({

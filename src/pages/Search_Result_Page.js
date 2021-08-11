@@ -16,11 +16,12 @@ const Search_Result_Page = () => {
     console.log("handle");
     e.preventDefault();
     setPage(1);
+    search(keyword, page);
   };
 
   useEffect(() => {
-    console.log("initial effect");
-    console.log(location.state.keyword);
+    // console.log("initial effect");
+    // console.log(location.state.keyword);
     if (location.state) {
       setKeyword(location.state.keyword);
       search(location.state.keyword, page);
