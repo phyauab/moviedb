@@ -13,7 +13,7 @@ const Search_Result_Page = () => {
   const location = useLocation();
 
   const handleSubmit = (e) => {
-    console.log("handle");
+    // console.log("handle");
     e.preventDefault();
     setPage(1);
     search(keyword, page);

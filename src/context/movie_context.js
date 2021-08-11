@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
+import {compareMoviesDates} from "../helpers/helpers"
 // import reducer from "../reducer/movie_reducer";
 // import {
 //   FETCH_TRENDING_MOVIE,
@@ -265,21 +266,9 @@ export const MovieProvider = ({ children }) => {
       const responseMovies = await api.get(`/person/${id}/movie_credits`);
 
       const tempMovies = responseMovies.data;
-      tempMovies.cast.sort(function (a, b) {
-        const y1 = new Date(a.release_date).getFullYear();
-        const y2 = new Date(b.release_date).getFullYear();
-        if (y1 > y2) return 1;
-        else if (y1 < y2) return -1;
-        return 0;
-      });
+      tempMovies.cast.sort((a, b) => compareMoviesDates(a,b));
       tempMovies.cast.reverse();
-      tempMovies.crew.sort(function (a, b) {
-        const y1 = new Date(a.release_date).getFullYear();
-        const y2 = new Date(b.release_date).getFullYear();
-        if (y1 > y2) return 1;
-        else if (y1 < y2) return -1;
-        return 0;
-      });
+      tempMovies.crew.sort((a, b) => compareMoviesDates(a,b));
       tempMovies.crew.reverse();
       // movies
 
