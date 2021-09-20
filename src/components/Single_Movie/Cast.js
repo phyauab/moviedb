@@ -8,9 +8,9 @@ export const Cast = ({ cast }) => {
   const allCastArr = [];
   const [showAll, setShowAll] = useState(false);
 
-  const addDefaultImg = (ev) =>{
-    ev.target.src = {user}
-  }
+  // const addDefaultImg = (ev) =>{
+  //   ev.target.src = {user}
+  // }
 
   // show only 10 initially
   const length = cast.length;
